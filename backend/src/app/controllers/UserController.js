@@ -8,13 +8,14 @@ class UserController {
       return res.status(400).json({ error: 'Este e-mail já foi cadastrado' });
     }
 
-    const { id, name, email, admin } = await User.create(req.body);
+    const { id, name, email, admin, active } = await User.create(req.body);
 
     return res.json({
       id,
       name,
       email,
       admin,
+      active,
     });
   }
 }

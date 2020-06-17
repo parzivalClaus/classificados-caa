@@ -6,6 +6,8 @@ class User extends Model {
     super.init(
       {
         admin: Sequelize.BOOLEAN,
+        active: Sequelize.BOOLEAN,
+        activeCode: Sequelize.STRING,
         name: Sequelize.STRING,
         email: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
@@ -19,6 +21,8 @@ class User extends Model {
       if (user.password) {
         user.password_hash = await bcrypt.hash(user.password, 8);
       }
+
+      user.activeCode = await bcrypt.hash(user.email, 3);
     });
 
     return this;

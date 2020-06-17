@@ -18,6 +18,12 @@ class SessionController {
       return res.status(401).json({ error: 'A senha está incorreta' });
     }
 
+    if (!user.active) {
+      return res.status(401).json({
+        error: 'Este usuário ainda não foi confirmado, verifique seu e-mail.',
+      });
+    }
+
     const { id, name } = user;
 
     return res.json({
