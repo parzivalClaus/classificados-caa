@@ -4,6 +4,8 @@ class Company extends Model {
   static init(sequelize) {
     super.init(
       {
+        active: Sequelize.BOOLEAN,
+        category: Sequelize.STRING,
         name: Sequelize.STRING,
         phone: Sequelize.STRING,
         whatsapp: Sequelize.STRING,
@@ -27,8 +29,8 @@ class Company extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.File, { foreignKey: 'logo_id' });
-    this.belongsTo(models.User, { foreignKey: 'creator_id' });
+    this.belongsTo(models.File, { foreignKey: 'logo_id', as: 'logo' });
+    this.belongsTo(models.User, { foreignKey: 'creator_id', as: 'creator' });
   }
 }
 

@@ -21,9 +21,18 @@ module.exports = {
         onDelete: 'SET NULL',
         allowNull: false,
       },
+      active: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      category: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       name: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       phone: {
         type: Sequelize.STRING,
