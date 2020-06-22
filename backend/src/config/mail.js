@@ -1,10 +1,10 @@
 export default {
-  host: 'smtp.mailtrap.io',
+  host: process.env.MAIL_HOST,
   secure: false,
-  port: 2525,
+  port: process.env.MAIL_PORT,
   auth: {
-    user: '468c1ab8e147b9',
-    pass: 'd38a7f11774e3e',
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
   },
   default: {
     from: 'Classificados C.A.A. <noreply@classificadoscaa.com.br>',
