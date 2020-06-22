@@ -34,7 +34,7 @@ class ActiveUserController {
 
     await userExists.update({ active: true });
 
-    return res.json();
+    return res.json({ ok: 'Usuário ativado com sucesso!' });
   }
 }
 

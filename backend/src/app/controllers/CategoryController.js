@@ -36,9 +36,13 @@ class CategoryController {
         .json({ error: 'Erro nos dados, por favor confira todos os campos' });
     }
 
-    const result = await Category.create(req.body);
+    try {
+      const { id, logo_id, name } = await Category.create(req.body);
 
-    return res.json(result);
+      return res.json({ id, logo_id, name });
+    } catch (err) {
+      return res.json({ error: err.parent.detail });
+    }
   }
 }
 

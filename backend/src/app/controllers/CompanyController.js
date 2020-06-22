@@ -2,8 +2,12 @@ import * as Yup from 'yup';
 import Category from '../models/Category';
 import Company from '../models/Company';
 import File from '../models/File';
+import User from '../models/User';
 
-import Mail from '../../lib/Mail';
+import CreateCompanyMail from '../jobs/CreateCompanyMail';
+import UserUpdateCompanyMail from '../jobs/UserUpdateCompanyMail';
+import AdminUpdateCompanyMail from '../jobs/AdminUpdateCompanyMail';
+import Queue from '../../lib/Queue';
 
 class CompanyController {
   async index(req, res) {
@@ -76,15 +80,66 @@ class CompanyController {
         .json({ error: 'Erro nos dados, por favor confira todos os campos' });
     }
 
-    const result = await Company.create(req.body);
+    try {
+      const result = await Company.create(req.body);
 
-    await Mail.sendMail({
-      to: 'Classificados C.A.A. <contato@classificadoscaa.com.br>',
-      subject: 'Nova empresa aguardando ativação',
-      text: 'Há uma nova empresa aguardando ativação.',
+      await Queue.add(CreateCompanyMail.key, { result });
+
+      return res.json(result);
+    } catch (err) {
+      return res.json({ error: err });
+    }
+  }
+
+  async update(req, res) {
+    const { userId } = req;
+    const { companyId } = req.params;
+
+    const { admin } = await User.findByPk(userId);
+
+    const company = await Company.findByPk(companyId, {
+      include: {
+        model: User,
+        as: 'creator',
+        attributes: ['id', 'name', 'admin', 'email'],
+      },
     });
 
-    return res.json(result);
+    if (!admin) {
+      if (company.creator.id !== userId) {
+        return res.status(401).json({ error: 'Usuário não autorizado.' });
+      }
+
+      await company.update({ active: false, ...req.body });
+
+      await Queue.add(UserUpdateCompanyMail.key, { company });
+
+      return res.json(company);
+    }
+
+    await company.update({ active: true, ...req.body });
+
+    await Queue.add(AdminUpdateCompanyMail.key, { company });
+
+    return res.json(company);
+  }
+
+  async delete(req, res) {
+    const { companyId } = req.params;
+
+    const company = await Company.findByPk(companyId);
+
+    if (!company) {
+      return res.status(400).json({ error: 'Esta empresa não existe' });
+    }
+
+    await Company.destroy({
+      where: {
+        id: companyId,
+      },
+    });
+
+    return res.json({ companyId });
   }
 }
 

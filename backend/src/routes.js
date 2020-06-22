@@ -28,5 +28,7 @@ routes.post('/categories', CategoryController.store);
 routes.post('/companies', CompanyController.store);
 routes.get('/category/:categoryId/companies', CompanyController.index);
 routes.get('/category/:categoryId/company/:companyId', CompanyController.index);
+routes.put('/company/:companyId', CompanyController.update);
+routes.delete('/company/:companyId', CompanyController.delete);
 
 export default routes;
