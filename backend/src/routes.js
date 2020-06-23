@@ -20,6 +20,8 @@ routes.post('/active-user', ActivateUserController.store);
 
 routes.use(authMiddleware);
 
+routes.put('/users/:id', UserController.update);
+
 routes.post('/files', upload.single('file'), FileController.store);
 
 routes.get('/categories', CategoryController.index);

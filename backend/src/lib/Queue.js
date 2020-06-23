@@ -2,9 +2,15 @@ import Bee from 'bee-queue';
 import CreateCompanyMail from '../app/jobs/CreateCompanyMail';
 import AdminUpdateCompanyMail from '../app/jobs/AdminUpdateCompanyMail';
 import UserUpdateCompanyMail from '../app/jobs/UserUpdateCompanyMail';
+import CreateUserMail from '../app/jobs/CreateUserMail';
 import redisConfig from '../config/redis';
 
-const jobs = [CreateCompanyMail, AdminUpdateCompanyMail, UserUpdateCompanyMail];
+const jobs = [
+  CreateCompanyMail,
+  AdminUpdateCompanyMail,
+  UserUpdateCompanyMail,
+  CreateUserMail,
+];
 
 class Queue {
   constructor() {

@@ -4,12 +4,16 @@ class FileController {
   async store(req, res) {
     const { filename: path, originalname: name } = req.file;
 
-    const file = await File.create({
-      name,
-      path,
-    });
+    try {
+      const file = await File.create({
+        name,
+        path,
+      });
 
-    return res.json(file);
+      return res.json(file);
+    } catch (err) {
+      return res.json(err);
+    }
   }
 }
 

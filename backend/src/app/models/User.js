@@ -1,5 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 class User extends Model {
   static init(sequelize) {
@@ -22,7 +23,7 @@ class User extends Model {
         user.password_hash = await bcrypt.hash(user.password, 8);
       }
 
-      user.activeCode = await bcrypt.hash(user.email, 3);
+      user.activeCode = crypto.randomBytes(8).toString('hex');
     });
 
     return this;

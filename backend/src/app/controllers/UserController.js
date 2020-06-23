@@ -1,12 +1,16 @@
 import * as Yup from 'yup';
 import User from '../models/User';
 
+import CreateUserMail from '../jobs/CreateUserMail';
+import Queue from '../../lib/Queue';
+
 class UserController {
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string().email().required(),
       password: Yup.string().required().min(6),
+      confirmPassword: Yup.string().required().min(6),
       registration: Yup.number().min(8),
     });
 
@@ -16,8 +20,18 @@ class UserController {
         .json({ error: 'Erro nos dados, por favor confira todos os campos' });
     }
 
+    const {
+      admin,
+      active,
+      name,
+      email,
+      password,
+      confirmPassword,
+      registration,
+    } = req.body;
+
     const emailExists = await User.findOne({
-      where: { email: req.body.email },
+      where: { email },
     });
 
     if (emailExists) {
@@ -25,7 +39,7 @@ class UserController {
     }
 
     const registrationExists = await User.findOne({
-      where: { registration: req.body.registration },
+      where: { registration },
     });
 
     if (registrationExists) {
@@ -34,7 +48,15 @@ class UserController {
         .json({ error: 'Esta matrícula já está cadastrada' });
     }
 
-    const { id, name, email, admin, active } = await User.create(req.body);
+    if (!(password === confirmPassword)) {
+      return res.status(400).json({
+        error: 'As senhas digitadas não conferem.',
+      });
+    }
+
+    const { id, activeCode } = await User.create(req.body);
+
+    await Queue.add(CreateUserMail.key, { name, email, activeCode });
 
     return res.json({
       id,
@@ -43,6 +65,63 @@ class UserController {
       admin,
       active,
     });
+  }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      email: Yup.string().email(),
+      oldPassword: Yup.string().min(6),
+      password: Yup.string()
+        .min(6)
+        .when('oldPassword', (oldPassword, field) =>
+          oldPassword ? field.required() : field
+        ),
+      confirmPassword: Yup.string().when('password', (password, field) =>
+        password ? field.required().oneOf([Yup.ref('password')]) : field
+      ),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res
+        .status(400)
+        .json({ error: 'Erros de validação, confira os dados.' });
+    }
+
+    const { userId } = req;
+    const { id } = req.params;
+    const { email, oldPassword } = req.body;
+
+    const user = await User.findByPk(userId);
+    const targetUser = await User.findByPk(id);
+
+    if (!user.admin && +id !== +userId) {
+      return res.status(401).json({
+        error: 'Usuário não autorizado',
+      });
+    }
+
+    if (email !== targetUser.email) {
+      const userExists = await User.findOne({ where: { email } });
+
+      if (userExists) {
+        return res
+          .status(400)
+          .json({ error: 'Já existe um usuário com este endereço de e-mail.' });
+      }
+    }
+
+    if (oldPassword && !(await targetUser.checkPassword(oldPassword))) {
+      return res.status(401).json({ error: 'A senha antiga está incorreta.' });
+    }
+
+    try {
+      const { name, registration } = await targetUser.update(req.body);
+
+      return res.json({ name, registration, email });
+    } catch (err) {
+      return res.json(err);
+    }
   }
 }
 
