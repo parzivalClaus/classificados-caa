@@ -20,7 +20,11 @@ class CompanyController {
     }
 
     if (companyId) {
-      const company = await Company.findByPk(companyId, {
+      const company = await Company.findOne({
+        where: {
+          id: companyId,
+          category: category.name,
+        },
         include: [
           {
             model: File,

@@ -8,6 +8,7 @@ import ActivateUserController from './app/controllers/ActivateUserController';
 import FileController from './app/controllers/FileController';
 import CompanyController from './app/controllers/CompanyController';
 import CategoryController from './app/controllers/CategoryController';
+import RecoveryPassController from './app/controllers/RecoveryPassController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -16,7 +17,9 @@ const upload = multer(multerConfig);
 
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
-routes.post('/active-user', ActivateUserController.store);
+routes.get('/active-user', ActivateUserController.index);
+routes.post('/recovery-password', RecoveryPassController.store);
+routes.get('/recovery-password', RecoveryPassController.index);
 
 routes.use(authMiddleware);
 

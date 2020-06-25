@@ -3,6 +3,8 @@ import CreateCompanyMail from '../app/jobs/CreateCompanyMail';
 import AdminUpdateCompanyMail from '../app/jobs/AdminUpdateCompanyMail';
 import UserUpdateCompanyMail from '../app/jobs/UserUpdateCompanyMail';
 import CreateUserMail from '../app/jobs/CreateUserMail';
+import RecoveryPassMail from '../app/jobs/RecoveryPassMail';
+import NewPassMail from '../app/jobs/NewPassMail';
 import redisConfig from '../config/redis';
 
 const jobs = [
@@ -10,6 +12,8 @@ const jobs = [
   AdminUpdateCompanyMail,
   UserUpdateCompanyMail,
   CreateUserMail,
+  RecoveryPassMail,
+  NewPassMail,
 ];
 
 class Queue {

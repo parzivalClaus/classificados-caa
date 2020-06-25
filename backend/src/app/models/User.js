@@ -9,6 +9,7 @@ class User extends Model {
         admin: Sequelize.BOOLEAN,
         active: Sequelize.BOOLEAN,
         activeCode: Sequelize.STRING,
+        recoveryCode: Sequelize.STRING,
         name: Sequelize.STRING,
         email: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
@@ -22,7 +23,9 @@ class User extends Model {
       if (user.password) {
         user.password_hash = await bcrypt.hash(user.password, 8);
       }
+    });
 
+    this.addHook('beforeCreate', async (user) => {
       user.activeCode = crypto.randomBytes(8).toString('hex');
     });
 

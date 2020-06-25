@@ -1,7 +1,7 @@
 import User from '../models/User';
 
 class ActiveUserController {
-  async store(req, res) {
+  async index(req, res) {
     const { email, code } = req.query;
 
     const userExists = await User.findOne({ where: { email } });
@@ -20,7 +20,7 @@ class ActiveUserController {
       return res.status(401).json({ error: 'Este usuário já está ativo' });
     }
 
-    await userExists.update({ active: true });
+    await userExists.update({ active: true, activeCode: null });
 
     return res.json({ ok: 'Usuário ativado com sucesso!' });
   }

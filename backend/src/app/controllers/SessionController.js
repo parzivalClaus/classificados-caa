@@ -25,6 +25,13 @@ class SessionController {
       return res.status(401).json({ error: 'Usuário não encontrado.' });
     }
 
+    if (user.recoveryCode) {
+      return res.status(401).json({
+        error:
+          'Você solicitou uma recuperação de senha, por favor confira sua caixa de e-mails',
+      });
+    }
+
     if (!(await user.checkPassword(password))) {
       return res.status(401).json({ error: 'A senha está incorreta' });
     }
