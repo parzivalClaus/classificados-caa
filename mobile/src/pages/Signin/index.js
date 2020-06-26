@@ -1,25 +1,33 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
+import { Alert } from "react-native";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import logo from '../../assets/logo.png';
+import { Formik } from "formik";
 
-import background from '../../assets/background.png';
+import * as yup from "yup";
+
+import logo from "../../assets/logo.png";
+
+import background from "../../assets/background.png";
+
+import api from "../../services/api";
 
 import {
   BackgroundContainer,
   BackgroundImage,
-} from '../../components/Background';
+} from "../../components/Background";
 
 import {
   Container,
   Logo,
-  Form,
+  FormView,
   FormInput,
+  ErrorText,
   SubmitButton,
   SignLink,
   SignLinkText,
-} from './styles';
+} from "./styles";
 
 export default function Signin({ navigation }) {
   const emailRef = useRef();
@@ -27,15 +35,27 @@ export default function Signin({ navigation }) {
   const passwordConfirmRef = useRef();
   const registrationRef = useRef();
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
   const [loading, setLoading] = useState(false);
-  const [registration, setRegistration] = useState('');
 
-  function handleSubmit() {
-    setLoading(false);
+  async function handleSubmit() {
+    setLoading(true);
+
+    // try {
+    //   await api.post("/sessions", {
+    //     name,
+    //     email,
+    //     password,
+    //     confirmPassword: passwordConfirm,
+    //     registration,
+    //   });
+
+    //   Alert.alert("Sucesso");
+
+    //   setLoading(false);
+    // } catch (err) {
+    //   Alert.alert(err.response.data.error);
+    //   setLoading(false);
+    // }
   }
 
   return (
@@ -44,71 +64,133 @@ export default function Signin({ navigation }) {
       <Container>
         <Logo source={logo} />
 
-        <Form>
-          <FormInput
-            icon="md-person"
-            autoCorrect={false}
-            autoCapitalize
-            placeholder="Seu nome completo"
-            returnKeyType="next"
-            onSubmitEditing={() => emailRef.current.focus()}
-            value={name}
-            onChangeText={setName}
-          />
+        <Formik
+          validateOnMount
+          onSubmit={(values) => Alert.alert(JSON.stringify(values))}
+          initialValues={{
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            registration: "",
+          }}
+          validationSchema={yup.object().shape({
+            name: yup.string().required("O nome precisa ser preenchido"),
+            email: yup
+              .string()
+              .email("Digite um endereço de e-mail válido.")
+              .required("O e-mail precisa ser preenchido."),
+            password: yup
+              .string()
+              .required("A senha precisa ser preenchida.")
+              .min(6, "A senha precisa ter no mínimo 6 digitos."),
+            confirmPassword: yup
+              .string()
+              .required("A confirmação de senha precisa ser preenchida")
+              .min(6)
+              .oneOf([yup.ref("password")], "As senhas não conferem."),
+            registration: yup
+              .string()
+              .min(8, "A matrícula precisa ter 8 dígitos"),
+          })}
+        >
+          {({
+            values,
+            handleChange,
+            isValid,
+            errors,
+            setFieldTouched,
+            touched,
+          }) => (
+            <FormView>
+              <FormInput
+                icon="md-person"
+                autoCorrect={false}
+                autoCapitalize="words"
+                placeholder="Seu nome completo"
+                returnKeyType="next"
+                onSubmitEditing={() => emailRef.current.focus()}
+                value={values.name}
+                onBlur={() => setFieldTouched("name")}
+                onChangeText={handleChange("name")}
+              />
+              {touched.name && errors.name && (
+                <ErrorText>{errors.name}</ErrorText>
+              )}
 
-          <FormInput
-            icon="md-mail"
-            keyboardType="email-address"
-            autoCorrect={false}
-            ref={emailRef}
-            autoCapitalize="none"
-            placeholder="Digite seu e-mail"
-            returnKeyType="next"
-            onSubmitEditing={() => passwordRef.current.focus()}
-            value={email}
-            onChangeText={setEmail}
-          />
+              <FormInput
+                icon="md-mail"
+                keyboardType="email-address"
+                autoCorrect={false}
+                ref={emailRef}
+                autoCapitalize="none"
+                placeholder="Digite seu e-mail"
+                returnKeyType="next"
+                onSubmitEditing={() => passwordRef.current.focus()}
+                value={values.email}
+                onBlur={() => setFieldTouched("email")}
+                onChangeText={handleChange("email")}
+              />
+              {touched.email && errors.email && (
+                <ErrorText>{errors.email}</ErrorText>
+              )}
+              <FormInput
+                icon="md-lock"
+                secureTextEntry
+                placeholder="Sua senha secreta"
+                ref={passwordRef}
+                returnKeyType="next"
+                onSubmitEditing={() => passwordConfirmRef.current.focus()}
+                value={values.password}
+                onBlur={() => setFieldTouched("password")}
+                onChangeText={handleChange("password")}
+              />
+              {touched.password && errors.password && (
+                <ErrorText>{errors.password}</ErrorText>
+              )}
 
-          <FormInput
-            icon="md-lock"
-            secureTextEntry
-            placeholder="Sua senha secreta"
-            ref={passwordRef}
-            returnKeyType="next"
-            onSubmitEditing={() => passwordConfirmRef.current.focus()}
-            value={password}
-            onChangeText={setPassword}
-          />
+              <FormInput
+                icon="md-lock"
+                secureTextEntry
+                placeholder="Confirmação da senha"
+                ref={passwordConfirmRef}
+                returnKeyType="next"
+                onSubmitEditing={() => registrationRef.current.focus()}
+                value={values.confirmPassword}
+                onBlur={() => setFieldTouched("confirmPassword")}
+                onChangeText={handleChange("confirmPassword")}
+              />
+              {touched.confirmPassword && errors.confirmPassword && (
+                <ErrorText>{errors.confirmPassword}</ErrorText>
+              )}
 
-          <FormInput
-            icon="md-lock"
-            secureTextEntry
-            placeholder="Confirmação da senha"
-            ref={passwordConfirmRef}
-            returnKeyType="next"
-            onSubmitEditing={() => registrationRef.current.focus()}
-            value={passwordConfirm}
-            onChangeText={setPasswordConfirm}
-          />
+              <FormInput
+                icon="md-clipboard"
+                placeholder="Matrícula (Opcional)"
+                keyboardType="numeric"
+                ref={registrationRef}
+                returnKeyType="send"
+                onSubmitEditing={handleSubmit}
+                value={values.registration}
+                onBlur={() => setFieldTouched("registration")}
+                onChangeText={handleChange("registration")}
+              />
+              {touched.registration && errors.registration && (
+                <ErrorText>{errors.registration}</ErrorText>
+              )}
 
-          <FormInput
-            icon="md-clipboard"
-            secureTextEntry
-            placeholder="Matrícula (Opcional)"
-            keyboardType="number"
-            ref={registrationRef}
-            returnKeyType="send"
-            onSubmitEditing={handleSubmit}
-            value={registration}
-            onChangeText={setRegistration}
-          />
+              <SubmitButton
+                disabled={!isValid}
+                loading={loading}
+                onPress={handleSubmit}
+              >
+                Cadastrar
+              </SubmitButton>
+            </FormView>
+          )}
+        </Formik>
 
-          <SubmitButton loading={loading} onPress={handleSubmit}>
-            Cadastrar
-          </SubmitButton>
-        </Form>
-
-        <SignLink onPress={() => navigation.navigate('Login')}>
+        <SignLink onPress={() => navigation.navigate("Login")}>
           <SignLinkText>Já sou cadastrado</SignLinkText>
         </SignLink>
       </Container>

@@ -17,7 +17,7 @@ class UserController {
     if (!(await schema.isValid(req.body))) {
       return res
         .status(400)
-        .json({ error: 'Erro nos dados, por favor confira todos os campos' });
+        .json({ error: 'Erro nos dados, por favor confira todos os campos.' });
     }
 
     const {
@@ -35,7 +35,7 @@ class UserController {
     });
 
     if (emailExists) {
-      return res.status(400).json({ error: 'Este e-mail já foi cadastrado' });
+      return res.status(400).json({ error: 'Este e-mail já foi cadastrado.' });
     }
 
     const registrationExists = await User.findOne({
@@ -45,7 +45,7 @@ class UserController {
     if (registrationExists) {
       return res
         .status(400)
-        .json({ error: 'Esta matrícula já está cadastrada' });
+        .json({ error: 'Esta matrícula já está cadastrada.' });
     }
 
     if (!(password === confirmPassword)) {
