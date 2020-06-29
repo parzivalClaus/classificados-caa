@@ -38,7 +38,7 @@ class SessionController {
 
     if (!user.active) {
       return res.status(401).json({
-        error: 'Este usuário ainda não foi confirmado, verifique seu e-mail.',
+        error: 'Usuário aguardando ativação.',
       });
     }
 
