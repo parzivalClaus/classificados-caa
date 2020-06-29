@@ -1,6 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 import { Alert } from "react-native";
+
+import { useDispatch, useSelector } from "react-redux";
 
 import PropTypes from "prop-types";
 
@@ -8,7 +10,7 @@ import { Formik } from "formik";
 
 import * as yup from "yup";
 
-import api from "../../services/api";
+import { signInRequest } from "../../store/modules/auth/actions";
 
 import logo from "../../assets/logo.png";
 
@@ -31,27 +33,16 @@ import {
 } from "./styles";
 
 export default function Login({ navigation }) {
+  const dispatch = useDispatch();
+
   const passwordRef = useRef();
 
-  const [loading, setLoading] = useState(false);
+  const loading = useSelector((state) => state.auth.loading);
 
   async function handleSubmit(values) {
     const { email, password } = values;
-    setLoading(true);
 
-    try {
-      await api.post("/sessions", {
-        email,
-        password,
-      });
-
-      Alert.alert("sucesso");
-
-      setLoading(false);
-    } catch (err) {
-      Alert.alert(err.response.data.error);
-      setLoading(false);
-    }
+    dispatch(signInRequest(email, password));
   }
 
   return (

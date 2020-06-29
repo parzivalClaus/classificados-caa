@@ -7,20 +7,27 @@ import PropTypes from "prop-types";
 import { Ionicons } from "@expo/vector-icons";
 import Category from "./Category";
 import NewCompany from "../../pages/NewCompany";
+import Profile from "../../pages/Profile";
+
+import { signOut } from "../../store/modules/auth/actions";
 
 const Tab = createBottomTabNavigator();
 
 export default function Dashboard() {
   return (
     <>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <StatusBar />
       <Tab.Navigator
         tabBarOptions={{
-          activeTintColor: "#7d40e7",
+          inactiveBackgroundColor: "#333",
+          activeTintColor: "#f02a2a",
+          inactiveTintColor: "#fff",
+          activeBackgroundColor: "#333",
           style: {
+            backgroundColor: "#333",
             height: 70,
-            paddingTop: 15,
-            paddingBottom: 15,
+            paddingBottom: 10,
+            paddingTop: 10,
           },
         }}
       >
@@ -30,8 +37,8 @@ export default function Dashboard() {
           options={{
             tabBarIcon: ({ focused }) => (
               <Ionicons
-                name="reorder"
-                color={focused ? "#7D40E7" : "#ddd"}
+                name="md-home"
+                color={focused ? "#f02a2a" : "#fff"}
                 size={32}
               />
             ),
@@ -43,8 +50,21 @@ export default function Dashboard() {
           options={{
             tabBarIcon: ({ focused }) => (
               <Ionicons
-                name="account-circle"
-                color={focused ? "#7D40E7" : "#ddd"}
+                name="md-add-circle"
+                color={focused ? "#f02a2a" : "#ddd"}
+                size={32}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Perfil"
+          component={Profile}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name="md-person"
+                color={focused ? "#f02a2a" : "#ddd"}
                 size={32}
               />
             ),

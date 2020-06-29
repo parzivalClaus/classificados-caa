@@ -16,6 +16,8 @@ const routes = new Router();
 const upload = multer(multerConfig);
 
 routes.post('/users', UserController.store);
+routes.get('/users/:userId', UserController.index);
+routes.get('/users', UserController.index);
 routes.post('/sessions', SessionController.store);
 routes.get('/active-user', ActivateUserController.index);
 routes.post('/recovery-password', RecoveryPassController.store);

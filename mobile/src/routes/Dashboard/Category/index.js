@@ -18,7 +18,6 @@ export default function CategoryNavigator() {
         name="Companies"
         component={Companies}
         options={{
-          headerTitle: "Detalhes da encomenda",
           headerStyle: {
             backgroundColor: "#7D40E7",
             elevation: 0,

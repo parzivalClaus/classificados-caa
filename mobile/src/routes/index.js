@@ -2,6 +2,8 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import { useSelector } from "react-redux";
+
 import Login from "../pages/Login";
 import Signin from "../pages/Signin";
 import SignInSuccess from "../pages/SignInSuccess";
@@ -11,7 +13,7 @@ import Dashboard from "./Dashboard";
 const AppStack = createStackNavigator();
 
 export default function Routes() {
-  const logged = false;
+  const logged = useSelector((state) => state.auth.signed);
 
   return (
     <NavigationContainer>

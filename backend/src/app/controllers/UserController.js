@@ -1,10 +1,28 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import User from '../models/User';
 
 import CreateUserMail from '../jobs/CreateUserMail';
 import Queue from '../../lib/Queue';
 
 class UserController {
+  async index(req, res) {
+    const { userId } = req.params;
+    const { q } = req.query;
+    const name = q || '';
+
+    if (userId) {
+      const user = await User.findByPk(userId);
+      return res.json(user);
+    }
+
+    const users = await User.findAndCountAll({
+      where: { name: { [Op.iLike]: `%${name}%` } },
+      order: [['name', 'ASC']],
+    });
+    return res.json(users);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),

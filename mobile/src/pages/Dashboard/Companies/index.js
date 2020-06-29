@@ -1,10 +1,12 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 // import { Container } from './styles';
 
-const Companies = () => {
-  return <View />;
-};
-
-export default Companies;
+export default function Companies(navigation) {
+  return (
+    <View>
+      <Text>aa</Text>
+    </View>
+  );
+}
