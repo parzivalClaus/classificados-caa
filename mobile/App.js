@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import App from './src';
+import App from "./src";
 
 console.disableYellowBox = true;
 

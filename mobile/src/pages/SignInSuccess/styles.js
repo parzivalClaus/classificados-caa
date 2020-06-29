@@ -1,9 +1,6 @@
 import { Platform, Image } from "react-native";
 import styled from "styled-components/native";
 
-import Input from "../../components/Input";
-import Button from "../../components/Button";
-
 export const Container = styled.KeyboardAvoidingView.attrs({
   enabled: Platform.OS === "ios",
   behavior: "padding",
@@ -20,25 +17,16 @@ export const Logo = styled(Image)`
   height: 150px;
 `;
 
-export const FormView = styled.View`
-  align-self: stretch;
-  margin-top: 30px;
+export const SucessTitle = styled.Text`
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 35px;
+  line-height: 25px;
 `;
 
-export const FormInput = styled(Input)`
-  margin-bottom: 10px;
-`;
-
-export const ErrorText = styled.Text`
-  color: #f00;
-  margin-bottom: 15px;
-  font-size: 12px;
-  margin-top: -7px;
-`;
-
-export const SubmitButton = styled(Button)`
-  margin-top: 5px;
-  opacity: ${(props) => (!props.disabled ? 1 : 0.5)};
+export const SuccessText = styled.Text`
+  font-size: 18px;
+  margin-top: 15px;
 `;
 
 export const SignLink = styled.TouchableOpacity`

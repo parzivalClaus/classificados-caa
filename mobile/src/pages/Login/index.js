@@ -1,35 +1,57 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 
-import PropTypes from 'prop-types';
+import { Alert } from "react-native";
 
-import logo from '../../assets/logo.png';
+import PropTypes from "prop-types";
 
-import background from '../../assets/background.png';
+import { Formik } from "formik";
+
+import * as yup from "yup";
+
+import api from "../../services/api";
+
+import logo from "../../assets/logo.png";
+
+import background from "../../assets/background.png";
 
 import {
   BackgroundContainer,
   BackgroundImage,
-} from '../../components/Background';
+} from "../../components/Background";
 
 import {
   Container,
   Logo,
-  Form,
+  FormView,
   FormInput,
+  ErrorText,
   SubmitButton,
   SignLink,
   SignLinkText,
-} from './styles';
+} from "./styles";
 
 export default function Login({ navigation }) {
   const passwordRef = useRef();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  function handleSubmit() {
-    setLoading(false);
+  async function handleSubmit(values) {
+    const { email, password } = values;
+    setLoading(true);
+
+    try {
+      await api.post("/sessions", {
+        email,
+        password,
+      });
+
+      Alert.alert("sucesso");
+
+      setLoading(false);
+    } catch (err) {
+      Alert.alert(err.response.data.error);
+      setLoading(false);
+    }
   }
 
   return (
@@ -38,36 +60,75 @@ export default function Login({ navigation }) {
       <Container>
         <Logo source={logo} />
 
-        <Form>
-          <FormInput
-            icon="md-person"
-            keyboardType="email-address"
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Digite seu e-mail"
-            returnKeyType="next"
-            onSubmitEditing={() => passwordRef.current.focus()}
-            value={email}
-            onChangeText={setEmail}
-          />
+        <Formik
+          validateOnMount
+          onSubmit={(values) => Alert.alert(JSON.stringify(values))}
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          validationSchema={yup.object().shape({
+            email: yup
+              .string()
+              .email("Digite um endereço de e-mail válido.")
+              .required("O e-mail precisa ser preenchido."),
+            password: yup
+              .string()
+              .required("A senha precisa ser preenchida.")
+              .min(6, "A senha precisa ter no mínimo 6 digitos."),
+          })}
+        >
+          {({
+            values,
+            handleChange,
+            isValid,
+            errors,
+            setFieldTouched,
+            touched,
+          }) => (
+            <FormView>
+              <FormInput
+                icon="md-mail"
+                keyboardType="email-address"
+                autoCorrect={false}
+                autoCapitalize="none"
+                placeholder="Digite seu e-mail"
+                returnKeyType="next"
+                onSubmitEditing={() => passwordRef.current.focus()}
+                value={values.email}
+                onBlur={() => setFieldTouched("email")}
+                onChangeText={handleChange("email")}
+              />
+              {touched.email && errors.email && (
+                <ErrorText>{errors.email}</ErrorText>
+              )}
+              <FormInput
+                icon="md-lock"
+                secureTextEntry
+                placeholder="Sua senha secreta"
+                ref={passwordRef}
+                returnKeyType="send"
+                onSubmitEditing={() => handleSubmit(values)}
+                value={values.password}
+                onBlur={() => setFieldTouched("password")}
+                onChangeText={handleChange("password")}
+              />
+              {touched.password && errors.password && (
+                <ErrorText>{errors.password}</ErrorText>
+              )}
 
-          <FormInput
-            icon="md-lock"
-            secureTextEntry
-            placeholder="Sua senha secreta"
-            ref={passwordRef}
-            returnKeyType="send"
-            onSubmitEditing={handleSubmit}
-            value={password}
-            onChangeText={setPassword}
-          />
+              <SubmitButton
+                disabled={!isValid}
+                loading={loading}
+                onPress={() => handleSubmit(values)}
+              >
+                Acessar
+              </SubmitButton>
+            </FormView>
+          )}
+        </Formik>
 
-          <SubmitButton loading={loading} onPress={handleSubmit}>
-            Acessar
-          </SubmitButton>
-        </Form>
-
-        <SignLink onPress={() => navigation.navigate('Signin')}>
+        <SignLink onPress={() => navigation.navigate("Signin")}>
           <SignLinkText>Não tenho cadastro</SignLinkText>
         </SignLink>
       </Container>

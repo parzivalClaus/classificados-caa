@@ -37,25 +37,26 @@ export default function Signin({ navigation }) {
 
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit() {
+  async function handleSubmit(values) {
+    const { name, email, password, confirmPassword, registration } = values;
     setLoading(true);
 
-    // try {
-    //   await api.post("/sessions", {
-    //     name,
-    //     email,
-    //     password,
-    //     confirmPassword: passwordConfirm,
-    //     registration,
-    //   });
+    try {
+      await api.post("/users", {
+        name,
+        email,
+        password,
+        confirmPassword,
+        registration,
+      });
 
-    //   Alert.alert("Sucesso");
+      setLoading(false);
 
-    //   setLoading(false);
-    // } catch (err) {
-    //   Alert.alert(err.response.data.error);
-    //   setLoading(false);
-    // }
+      navigation.navigate("SignInSuccess");
+    } catch (err) {
+      Alert.alert(err.response.data.error);
+      setLoading(false);
+    }
   }
 
   return (
@@ -170,7 +171,7 @@ export default function Signin({ navigation }) {
                 keyboardType="numeric"
                 ref={registrationRef}
                 returnKeyType="send"
-                onSubmitEditing={handleSubmit}
+                onSubmitEditing={() => handleSubmit(values)}
                 value={values.registration}
                 onBlur={() => setFieldTouched("registration")}
                 onChangeText={handleChange("registration")}
@@ -182,7 +183,7 @@ export default function Signin({ navigation }) {
               <SubmitButton
                 disabled={!isValid}
                 loading={loading}
-                onPress={handleSubmit}
+                onPress={() => handleSubmit(values)}
               >
                 Cadastrar
               </SubmitButton>
