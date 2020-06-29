@@ -3,10 +3,11 @@ import { View, Text } from "react-native";
 
 // import { Container } from './styles';
 
-export default function Companies(navigation) {
+export default function Companies({ route }) {
+  const { item } = route.params;
   return (
     <View>
-      <Text>aa</Text>
+      <Text>{item.name}</Text>
     </View>
   );
 }

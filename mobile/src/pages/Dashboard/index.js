@@ -13,9 +13,7 @@ function Dashboard({ navigation, isFocused }) {
       const result = await api.get("/categories");
 
       setCategories(result.data.rows);
-      console.log(result.data.rows);
     } catch (err) {
-      console.log(err.response);
       Alert.alert(err.response.data.error);
     }
   }
