@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   padding: 0 15px;
@@ -9,11 +9,10 @@ export const Container = styled.View`
   align-items: center;
 `;
 
-export const TInput = styled.TextInput.attrs({
-  placeholderTextColor: '#a0a0a0',
-})`
+export const TInput = styled.TextInput.attrs({})`
   flex: 1;
   font-size: 17px;
   margin-left: 10px;
+  background-color: #ffffff;
   color: #a0a0a0;
 `;

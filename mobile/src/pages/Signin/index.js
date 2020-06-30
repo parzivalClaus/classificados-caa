@@ -120,6 +120,7 @@ export default function Signin({ navigation }) {
                 icon="md-mail"
                 keyboardType="email-address"
                 autoCorrect={false}
+                autoComplete={false}
                 ref={emailRef}
                 autoCapitalize="none"
                 placeholder="Digite seu e-mail"
@@ -134,7 +135,6 @@ export default function Signin({ navigation }) {
               )}
               <FormInput
                 icon="md-lock"
-                secureTextEntry
                 placeholder="Sua senha secreta"
                 ref={passwordRef}
                 returnKeyType="next"

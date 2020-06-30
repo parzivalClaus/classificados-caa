@@ -27,6 +27,8 @@ export const FormView = styled.View`
 
 export const FormInput = styled(Input)`
   margin-bottom: 10px;
+  background-color: #fff;
+  background: #fff;
 `;
 
 export const ErrorText = styled.Text`
