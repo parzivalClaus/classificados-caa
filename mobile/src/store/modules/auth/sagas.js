@@ -9,7 +9,7 @@ export function* signIn({ payload }) {
   const { email, password } = payload;
 
   try {
-    const response = yield call(api.post, `/sessions`, { email, password });
+    const response = yield call(api.post, `sessions`, { email, password });
 
     const { token, user } = response.data;
 
@@ -22,4 +22,17 @@ export function* signIn({ payload }) {
   }
 }
 
-export default all([takeLatest("@auth/SIGN_IN_REQUEST", signIn)]);
+export function setToken({ payload }) {
+  if (!payload) return;
+
+  const { token } = payload.auth;
+
+  if (token) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+}
+
+export default all([
+  takeLatest("persist/REHYDRATE", setToken),
+  takeLatest("@auth/SIGN_IN_REQUEST", signIn),
+]);

@@ -18,18 +18,12 @@ export default function CategoryNavigator() {
         name="Companies"
         component={Companies}
         options={{
-          headerTitle: "Categoria",
           headerStyle: {
             backgroundColor: "#7D40E7",
             elevation: 0,
-            height: 150,
           },
-          headerLeftContainerStyle: {
-            paddingBottom: 70,
-          },
-          headerTitleContainerStyle: {
-            paddingBottom: 70,
-          },
+          headerLeftContainerStyle: {},
+          headerTitleContainerStyle: {},
           headerTintColor: "#fff",
         }}
       />

@@ -73,7 +73,7 @@ export default function Signin({ navigation }) {
             email: "",
             password: "",
             confirmPassword: "",
-            registration: "",
+            registration: null,
           }}
           validationSchema={yup.object().shape({
             name: yup.string().required("O nome precisa ser preenchido"),
@@ -90,9 +90,6 @@ export default function Signin({ navigation }) {
               .required("A confirmação de senha precisa ser preenchida")
               .min(6)
               .oneOf([yup.ref("password")], "As senhas não conferem."),
-            registration: yup
-              .string()
-              .min(8, "A matrícula precisa ter 8 dígitos"),
           })}
         >
           {({
@@ -176,9 +173,6 @@ export default function Signin({ navigation }) {
                 onBlur={() => setFieldTouched("registration")}
                 onChangeText={handleChange("registration")}
               />
-              {touched.registration && errors.registration && (
-                <ErrorText>{errors.registration}</ErrorText>
-              )}
 
               <SubmitButton
                 disabled={!isValid}

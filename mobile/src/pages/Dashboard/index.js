@@ -1,16 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, FlatList, Alert } from "react-native";
+import { TextInput, Alert } from "react-native";
 
 import api from "../../services/api";
 
-// import { Container } from './styles';
+import logo2 from "../../assets/logo2.png";
+import background from "../../assets/background.png";
+
+import {
+  BackgroundContainer,
+  BackgroundImage,
+} from "../../components/Background";
+
+import {
+  Container,
+  TopBar,
+  Logo,
+  SearchText,
+  CategoryList,
+  Category,
+  CategoryBox,
+  CategoryImage,
+  CategoryTitle,
+} from "./styles";
 
 function Dashboard({ navigation, isFocused }) {
+  const [search, setSearch] = useState("");
   const [categories, setCategories] = useState();
 
   async function loadPage() {
     try {
-      const result = await api.get("/categories");
+      const result = await api.get("/categories", { params: { q: search } });
 
       setCategories(result.data.rows);
     } catch (err) {
@@ -20,23 +39,51 @@ function Dashboard({ navigation, isFocused }) {
 
   useEffect(() => {
     loadPage();
-  }, []);
+  }, [search]);
 
   return (
-    <View>
-      <FlatList
-        key="list"
-        data={categories}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Companies", { item })}
-          >
-            <Text>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-      />
-    </View>
+    <BackgroundContainer>
+      <BackgroundImage source={background} />
+      <TopBar>
+        <Logo source={logo2} />
+      </TopBar>
+      <Container>
+        <SearchText>Encontre o que você procura:</SearchText>
+        <TextInput
+          style={{
+            height: 40,
+            borderColor: "gray",
+            backgroundColor: "#fff",
+            borderRadius: 4,
+            margin: 10,
+            padding: 10,
+          }}
+          onChangeText={(text) => setSearch(text)}
+          value={search}
+        />
+
+        <CategoryList
+          data={categories}
+          extraData={categories}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => (
+            <Category>
+              <CategoryBox
+                onPress={() => navigation.navigate("Companies", { item })}
+              >
+                <CategoryImage
+                  source={{
+                    uri: `http://192.168.0.12:3333/files/${item.logo.name}`,
+                  }}
+                  alt={item.name}
+                />
+                <CategoryTitle>{item.name}</CategoryTitle>
+              </CategoryBox>
+            </Category>
+          )}
+        />
+      </Container>
+    </BackgroundContainer>
   );
 }
 

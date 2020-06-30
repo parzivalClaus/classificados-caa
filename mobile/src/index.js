@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 import { StatusBar } from "react-native";
 import Routes from "./routes";
 
+import "./config/ReactotronConfig";
+
 import { store, persistor } from "./store";
 
 export default function App() {

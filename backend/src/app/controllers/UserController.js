@@ -29,7 +29,6 @@ class UserController {
       email: Yup.string().email().required(),
       password: Yup.string().required().min(6),
       confirmPassword: Yup.string().required().min(6),
-      registration: Yup.number().min(8),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -54,16 +53,6 @@ class UserController {
 
     if (emailExists) {
       return res.status(400).json({ error: 'Este e-mail já foi cadastrado.' });
-    }
-
-    const registrationExists = await User.findOne({
-      where: { registration },
-    });
-
-    if (registrationExists) {
-      return res
-        .status(400)
-        .json({ error: 'Esta matrícula já está cadastrada.' });
     }
 
     if (!(password === confirmPassword)) {
