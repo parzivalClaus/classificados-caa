@@ -11,6 +11,12 @@ export function* signIn({ payload }) {
   try {
     const response = yield call(api.post, `sessions`, { email, password });
 
+    if (response.data.user.admin) {
+      Alert.alert("Admin, favor usar a versão web.");
+      yield put(signFailure());
+      return;
+    }
+
     const { token, user } = response.data;
 
     api.defaults.headers.Authorization = `Bearer ${token}`;

@@ -4,7 +4,7 @@ import { TextInput, Alert } from "react-native";
 import api from "../../services/api";
 
 import logo2 from "../../assets/logo2.png";
-import background from "../../assets/background.png";
+import background from "../../assets/background-gray.png";
 
 import {
   BackgroundContainer,
@@ -73,7 +73,7 @@ function Dashboard({ navigation, isFocused }) {
               >
                 <CategoryImage
                   source={{
-                    uri: `http://192.168.0.12:3333/files/${item.logo.name}`,
+                    uri: `http://192.168.0.12:3333/files/${item.logo.path}`,
                   }}
                   alt={item.name}
                 />

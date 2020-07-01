@@ -1,7 +1,6 @@
 import React, { useState, forwardRef } from "react";
 import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import PropTypes from "prop-types";
 
 import { Container, TInput } from "./styles";
 
@@ -28,15 +27,5 @@ function Input({ style, icon, ...rest }, ref) {
     </Container>
   );
 }
-
-Input.propTypes = {
-  icon: PropTypes.string,
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-};
-
-Input.defaultProps = {
-  icon: null,
-  style: {},
-};
 
 export default forwardRef(Input);

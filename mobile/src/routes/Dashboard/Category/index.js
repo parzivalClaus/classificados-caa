@@ -19,7 +19,8 @@ export default function CategoryNavigator() {
         component={Companies}
         options={{
           headerStyle: {
-            backgroundColor: "#7D40E7",
+            height: 70,
+            backgroundColor: "#f02a2a",
             elevation: 0,
           },
           headerLeftContainerStyle: {},
@@ -32,18 +33,13 @@ export default function CategoryNavigator() {
         component={Company}
         options={{
           headerShown: true,
-          headerTitle: "Informar um problema",
           headerStyle: {
-            backgroundColor: "#7D40E7",
+            height: 70,
+            backgroundColor: "#f02a2a",
             elevation: 0,
-            height: 150,
           },
-          headerLeftContainerStyle: {
-            paddingBottom: 70,
-          },
-          headerTitleContainerStyle: {
-            paddingBottom: 70,
-          },
+          headerLeftContainerStyle: {},
+          headerTitleContainerStyle: {},
           headerTintColor: "#fff",
         }}
       />

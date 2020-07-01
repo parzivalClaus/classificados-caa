@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import Category from '../models/Category';
 import Company from '../models/Company';
 import File from '../models/File';
@@ -12,7 +13,8 @@ import Queue from '../../lib/Queue';
 class CompanyController {
   async index(req, res) {
     const { categoryId, companyId } = req.params;
-
+    const { active, q } = req.query;
+    const name = q || '';
     const category = await Category.findByPk(categoryId);
 
     if (!category) {
@@ -43,6 +45,8 @@ class CompanyController {
     const companies = await Company.findAndCountAll({
       where: {
         category: category.name,
+        active,
+        name: { [Op.iLike]: `%${name}%` },
       },
       include: [
         {

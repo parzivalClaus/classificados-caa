@@ -1,10 +1,27 @@
-import React from "react";
-import { View } from "react-native";
+import React, { useState, useEffect } from "react";
 
-// import { Container } from './styles';
+import background from "../../../assets/background-gray.png";
 
-const Company = () => {
-  return <View />;
-};
+import {
+  BackgroundContainer,
+  BackgroundImage,
+} from "../../../components/Background";
 
-export default Company;
+import { Container } from "./styles";
+
+export default function Company({ route, navigation }) {
+  const { item } = route.params;
+  const [company, setCompany] = useState({});
+
+  useEffect(() => {
+    setCompany(item);
+    navigation.setOptions({ title: `${item.name}` });
+  }, []);
+
+  return (
+    <BackgroundContainer>
+      <BackgroundImage source={background} />
+      <Container />
+    </BackgroundContainer>
+  );
+}
