@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { TextInput, Alert } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { TextInput, Alert } from 'react-native';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
-import logo2 from "../../assets/logo2.png";
-import background from "../../assets/background-gray.png";
+import logo2 from '../../assets/logo2.png';
+import background from '../../assets/background-gray.png';
 
 import {
   BackgroundContainer,
   BackgroundImage,
-} from "../../components/Background";
+} from '../../components/Background';
 
 import {
   Container,
@@ -21,15 +21,15 @@ import {
   CategoryBox,
   CategoryImage,
   CategoryTitle,
-} from "./styles";
+} from './styles';
 
 function Dashboard({ navigation, isFocused }) {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [categories, setCategories] = useState();
 
   async function loadPage() {
     try {
-      const result = await api.get("/categories", { params: { q: search } });
+      const result = await api.get('/categories', { params: { q: search } });
 
       setCategories(result.data.rows);
     } catch (err) {
@@ -52,8 +52,8 @@ function Dashboard({ navigation, isFocused }) {
         <TextInput
           style={{
             height: 40,
-            borderColor: "gray",
-            backgroundColor: "#fff",
+            borderColor: 'gray',
+            backgroundColor: '#fff',
             borderRadius: 4,
             margin: 10,
             padding: 10,
@@ -69,11 +69,11 @@ function Dashboard({ navigation, isFocused }) {
           renderItem={({ item }) => (
             <Category>
               <CategoryBox
-                onPress={() => navigation.navigate("Companies", { item })}
+                onPress={() => navigation.navigate('Companies', { item })}
               >
                 <CategoryImage
                   source={{
-                    uri: `http://192.168.0.12:3333/files/${item.logo.path}`,
+                    uri: `http://192.168.0.13:3333/files/${item.logo.path}`,
                   }}
                   alt={item.name}
                 />

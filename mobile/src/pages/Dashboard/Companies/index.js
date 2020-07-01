@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { TextInput } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { TextInput } from 'react-native';
 
-import background from "../../../assets/background-gray.png";
+import background from '../../../assets/background-gray.png';
 
 import {
   BackgroundContainer,
   BackgroundImage,
-} from "../../../components/Background";
+} from '../../../components/Background';
 
 import {
   Container,
@@ -17,14 +17,14 @@ import {
   CategoryImage,
   CompanyImage,
   CompanyTitle,
-} from "./styles";
+} from './styles';
 
-import api from "../../../services/api";
+import api from '../../../services/api';
 
 export default function Companies({ route, navigation }) {
   const { item } = route.params;
   const [category, setCategory] = useState({});
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [companies, setCompanies] = useState();
 
   useEffect(() => {
@@ -56,8 +56,8 @@ export default function Companies({ route, navigation }) {
         <TextInput
           style={{
             height: 40,
-            borderColor: "gray",
-            backgroundColor: "#fff",
+            borderColor: 'gray',
+            backgroundColor: '#fff',
             borderRadius: 4,
             margin: 10,
             padding: 10,
@@ -73,12 +73,14 @@ export default function Companies({ route, navigation }) {
           renderItem={({ item }) => (
             <Company>
               <CompanyBox
-                onPress={() => navigation.navigate("Company", { item })}
+                onPress={() =>
+                  navigation.navigate('Company', { item, cat: category })
+                }
               >
                 {item.logo ? (
                   <CompanyImage
                     source={{
-                      uri: `http://192.168.0.12:3333/files/${item.logo.path}`,
+                      uri: `http://192.168.0.13:3333/files/${item.logo.path}`,
                     }}
                     alt={item.name}
                   />
