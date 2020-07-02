@@ -1,25 +1,25 @@
-import React, { useRef } from "react";
+import React, { useRef } from 'react';
 
-import { Alert } from "react-native";
+import { Alert } from 'react-native';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import { Formik } from "formik";
+import { Formik } from 'formik';
 
-import * as yup from "yup";
+import * as yup from 'yup';
 
-import { signInRequest } from "../../store/modules/auth/actions";
+import { signInRequest } from '../../store/modules/auth/actions';
 
-import logo from "../../assets/logo.png";
+import logo from '../../assets/logo.png';
 
-import background from "../../assets/background.png";
+import background from '../../assets/background.png';
 
 import {
   BackgroundContainer,
   BackgroundImage,
-} from "../../components/Background";
+} from '../../components/Background';
 
 import {
   Container,
@@ -30,7 +30,7 @@ import {
   SubmitButton,
   SignLink,
   SignLinkText,
-} from "./styles";
+} from './styles';
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
@@ -55,18 +55,18 @@ export default function Login({ navigation }) {
           validateOnMount
           onSubmit={(values) => Alert.alert(JSON.stringify(values))}
           initialValues={{
-            email: "",
-            password: "",
+            email: '',
+            password: '',
           }}
           validationSchema={yup.object().shape({
             email: yup
               .string()
-              .email("Digite um endereço de e-mail válido.")
-              .required("O e-mail precisa ser preenchido."),
+              .email('Digite um endereço de e-mail válido.')
+              .required('O e-mail precisa ser preenchido.'),
             password: yup
               .string()
-              .required("A senha precisa ser preenchida.")
-              .min(6, "A senha precisa ter no mínimo 6 digitos."),
+              .required('A senha precisa ser preenchida.')
+              .min(6, 'A senha precisa ter no mínimo 6 digitos.'),
           })}
         >
           {({
@@ -87,8 +87,8 @@ export default function Login({ navigation }) {
                 returnKeyType="next"
                 onSubmitEditing={() => passwordRef.current.focus()}
                 value={values.email}
-                onBlur={() => setFieldTouched("email")}
-                onChangeText={handleChange("email")}
+                onBlur={() => setFieldTouched('email')}
+                onChangeText={handleChange('email')}
               />
               {touched.email && errors.email && (
                 <ErrorText>{errors.email}</ErrorText>
@@ -101,8 +101,8 @@ export default function Login({ navigation }) {
                 returnKeyType="send"
                 onSubmitEditing={() => handleSubmit(values)}
                 value={values.password}
-                onBlur={() => setFieldTouched("password")}
-                onChangeText={handleChange("password")}
+                onBlur={() => setFieldTouched('password')}
+                onChangeText={handleChange('password')}
               />
               {touched.password && errors.password && (
                 <ErrorText>{errors.password}</ErrorText>
@@ -119,7 +119,7 @@ export default function Login({ navigation }) {
           )}
         </Formik>
 
-        <SignLink onPress={() => navigation.navigate("Signin")}>
+        <SignLink onPress={() => navigation.navigate('Signin')}>
           <SignLinkText>Não tenho cadastro</SignLinkText>
         </SignLink>
       </Container>

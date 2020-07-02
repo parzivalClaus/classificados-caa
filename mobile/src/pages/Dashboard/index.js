@@ -23,7 +23,7 @@ import {
   CategoryTitle,
 } from './styles';
 
-function Dashboard({ navigation, isFocused }) {
+function Dashboard({ navigation }) {
   const [search, setSearch] = useState('');
   const [categories, setCategories] = useState();
 
@@ -73,7 +73,7 @@ function Dashboard({ navigation, isFocused }) {
               >
                 <CategoryImage
                   source={{
-                    uri: `http://192.168.0.13:3333/files/${item.logo.path}`,
+                    uri: `http://192.168.0.12:3333/files/${item.logo.path}`,
                   }}
                   alt={item.name}
                 />

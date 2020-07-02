@@ -1,22 +1,22 @@
-import React, { useRef, useState } from "react";
-import { Alert } from "react-native";
+import React, { useRef, useState } from 'react';
+import { Alert } from 'react-native';
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import { Formik } from "formik";
+import { Formik } from 'formik';
 
-import * as yup from "yup";
+import * as yup from 'yup';
 
-import logo from "../../assets/logo.png";
+import logo from '../../assets/logo.png';
 
-import background from "../../assets/background.png";
+import background from '../../assets/background.png';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
 import {
   BackgroundContainer,
   BackgroundImage,
-} from "../../components/Background";
+} from '../../components/Background';
 
 import {
   Container,
@@ -27,7 +27,7 @@ import {
   SubmitButton,
   SignLink,
   SignLinkText,
-} from "./styles";
+} from './styles';
 
 export default function Signin({ navigation }) {
   const emailRef = useRef();
@@ -42,7 +42,7 @@ export default function Signin({ navigation }) {
     setLoading(true);
 
     try {
-      await api.post("/users", {
+      await api.post('/users', {
         name,
         email,
         password,
@@ -52,7 +52,7 @@ export default function Signin({ navigation }) {
 
       setLoading(false);
 
-      navigation.navigate("SignInSuccess");
+      navigation.navigate('SignInSuccess');
     } catch (err) {
       Alert.alert(err.response.data.error);
       setLoading(false);
@@ -69,27 +69,27 @@ export default function Signin({ navigation }) {
           validateOnMount
           onSubmit={(values) => Alert.alert(JSON.stringify(values))}
           initialValues={{
-            name: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
             registration: null,
           }}
           validationSchema={yup.object().shape({
-            name: yup.string().required("O nome precisa ser preenchido"),
+            name: yup.string().required('O nome precisa ser preenchido'),
             email: yup
               .string()
-              .email("Digite um endereço de e-mail válido.")
-              .required("O e-mail precisa ser preenchido."),
+              .email('Digite um endereço de e-mail válido.')
+              .required('O e-mail precisa ser preenchido.'),
             password: yup
               .string()
-              .required("A senha precisa ser preenchida.")
-              .min(6, "A senha precisa ter no mínimo 6 digitos."),
+              .required('A senha precisa ser preenchida.')
+              .min(6, 'A senha precisa ter no mínimo 6 digitos.'),
             confirmPassword: yup
               .string()
-              .required("A confirmação de senha precisa ser preenchida")
+              .required('A confirmação de senha precisa ser preenchida')
               .min(6)
-              .oneOf([yup.ref("password")], "As senhas não conferem."),
+              .oneOf([yup.ref('password')], 'As senhas não conferem.'),
           })}
         >
           {({
@@ -109,8 +109,8 @@ export default function Signin({ navigation }) {
                 returnKeyType="next"
                 onSubmitEditing={() => emailRef.current.focus()}
                 value={values.name}
-                onBlur={() => setFieldTouched("name")}
-                onChangeText={handleChange("name")}
+                onBlur={() => setFieldTouched('name')}
+                onChangeText={handleChange('name')}
               />
               {touched.name && errors.name && (
                 <ErrorText>{errors.name}</ErrorText>
@@ -127,8 +127,8 @@ export default function Signin({ navigation }) {
                 returnKeyType="next"
                 onSubmitEditing={() => passwordRef.current.focus()}
                 value={values.email}
-                onBlur={() => setFieldTouched("email")}
-                onChangeText={handleChange("email")}
+                onBlur={() => setFieldTouched('email')}
+                onChangeText={handleChange('email')}
               />
               {touched.email && errors.email && (
                 <ErrorText>{errors.email}</ErrorText>
@@ -140,8 +140,8 @@ export default function Signin({ navigation }) {
                 returnKeyType="next"
                 onSubmitEditing={() => passwordConfirmRef.current.focus()}
                 value={values.password}
-                onBlur={() => setFieldTouched("password")}
-                onChangeText={handleChange("password")}
+                onBlur={() => setFieldTouched('password')}
+                onChangeText={handleChange('password')}
               />
               {touched.password && errors.password && (
                 <ErrorText>{errors.password}</ErrorText>
@@ -155,8 +155,8 @@ export default function Signin({ navigation }) {
                 returnKeyType="next"
                 onSubmitEditing={() => registrationRef.current.focus()}
                 value={values.confirmPassword}
-                onBlur={() => setFieldTouched("confirmPassword")}
-                onChangeText={handleChange("confirmPassword")}
+                onBlur={() => setFieldTouched('confirmPassword')}
+                onChangeText={handleChange('confirmPassword')}
               />
               {touched.confirmPassword && errors.confirmPassword && (
                 <ErrorText>{errors.confirmPassword}</ErrorText>
@@ -170,8 +170,8 @@ export default function Signin({ navigation }) {
                 returnKeyType="send"
                 onSubmitEditing={() => handleSubmit(values)}
                 value={values.registration}
-                onBlur={() => setFieldTouched("registration")}
-                onChangeText={handleChange("registration")}
+                onBlur={() => setFieldTouched('registration')}
+                onChangeText={handleChange('registration')}
               />
 
               <SubmitButton
@@ -185,7 +185,7 @@ export default function Signin({ navigation }) {
           )}
         </Formik>
 
-        <SignLink onPress={() => navigation.navigate("Login")}>
+        <SignLink onPress={() => navigation.navigate('Login')}>
           <SignLinkText>Já sou cadastrado</SignLinkText>
         </SignLink>
       </Container>
