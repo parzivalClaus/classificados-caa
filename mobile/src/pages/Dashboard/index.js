@@ -73,7 +73,7 @@ function Dashboard({ navigation }) {
               >
                 <CategoryImage
                   source={{
-                    uri: `http://192.168.0.12:3333/files/${item.logo.path}`,
+                    uri: `http://192.168.10.123:3333/files/${item.logo.path}`,
                   }}
                   alt={item.name}
                 />

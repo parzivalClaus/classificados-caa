@@ -1,5 +1,5 @@
-import styled from "styled-components/native";
-import { SafeAreaView } from "react-native";
+import styled from 'styled-components/native';
+import { SafeAreaView } from 'react-native';
 
 export const BackgroundContainer = styled(SafeAreaView)`
   flex: 1;

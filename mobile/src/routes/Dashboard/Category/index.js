@@ -1,8 +1,8 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import Dashboard from "../../../pages/Dashboard";
-import Companies from "../../../pages/Dashboard/Companies";
-import Company from "../../../pages/Dashboard/Company";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import Dashboard from '../../../pages/Dashboard';
+import Companies from '../../../pages/Dashboard/Companies';
+import Company from '../../../pages/Dashboard/Company';
 
 const Stack = createStackNavigator();
 
@@ -20,12 +20,12 @@ export default function CategoryNavigator() {
         options={{
           headerStyle: {
             height: 70,
-            backgroundColor: "#f02a2a",
+            backgroundColor: '#f02a2a',
             elevation: 0,
           },
           headerLeftContainerStyle: {},
           headerTitleContainerStyle: {},
-          headerTintColor: "#fff",
+          headerTintColor: '#fff',
         }}
       />
       <Stack.Screen
@@ -35,12 +35,12 @@ export default function CategoryNavigator() {
           headerShown: true,
           headerStyle: {
             height: 70,
-            backgroundColor: "#f02a2a",
+            backgroundColor: '#f02a2a',
             elevation: 0,
           },
           headerLeftContainerStyle: {},
           headerTitleContainerStyle: {},
-          headerTintColor: "#fff",
+          headerTintColor: '#fff',
         }}
       />
     </Stack.Navigator>

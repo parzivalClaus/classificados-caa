@@ -1,9 +1,9 @@
-import { Alert } from "react-native";
-import { takeLatest, call, put, all } from "redux-saga/effects";
+import { Alert } from 'react-native';
+import { takeLatest, call, put, all } from 'redux-saga/effects';
 
-import { signInSuccess, signFailure } from "./actions";
+import { signInSuccess, signFailure } from './actions';
 
-import api from "../../../services/api";
+import api from '../../../services/api';
 
 export function* signIn({ payload }) {
   const { email, password } = payload;
@@ -12,7 +12,7 @@ export function* signIn({ payload }) {
     const response = yield call(api.post, `sessions`, { email, password });
 
     if (response.data.user.admin) {
-      Alert.alert("Admin, favor usar a versão web.");
+      Alert.alert('Admin, favor usar a versão web.');
       yield put(signFailure());
       return;
     }
@@ -39,6 +39,6 @@ export function setToken({ payload }) {
 }
 
 export default all([
-  takeLatest("persist/REHYDRATE", setToken),
-  takeLatest("@auth/SIGN_IN_REQUEST", signIn),
+  takeLatest('persist/REHYDRATE', setToken),
+  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
 ]);

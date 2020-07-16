@@ -1,15 +1,15 @@
-import React from "react";
-import { StatusBar } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from 'react';
+import { StatusBar } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import { Ionicons } from "@expo/vector-icons";
-import Category from "./Category";
-import NewCompany from "../../pages/NewCompany";
-import Profile from "../../pages/Profile";
+import { Ionicons } from '@expo/vector-icons';
+import Category from './Category';
+import NewCompany from '../../pages/NewCompany';
+import Profile from '../../pages/Profile';
 
-import { signOut } from "../../store/modules/auth/actions";
+import { signOut } from '../../store/modules/auth/actions';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,12 +19,12 @@ export default function Dashboard() {
       <StatusBar />
       <Tab.Navigator
         tabBarOptions={{
-          inactiveBackgroundColor: "#333",
-          activeTintColor: "#f02a2a",
-          inactiveTintColor: "#fff",
-          activeBackgroundColor: "#333",
+          inactiveBackgroundColor: '#333',
+          activeTintColor: '#f02a2a',
+          inactiveTintColor: '#fff',
+          activeBackgroundColor: '#333',
           style: {
-            backgroundColor: "#333",
+            backgroundColor: '#333',
             height: 70,
             paddingBottom: 10,
             paddingTop: 10,
@@ -38,7 +38,7 @@ export default function Dashboard() {
             tabBarIcon: ({ focused }) => (
               <Ionicons
                 name="md-home"
-                color={focused ? "#f02a2a" : "#fff"}
+                color={focused ? '#f02a2a' : '#fff'}
                 size={32}
               />
             ),
@@ -51,7 +51,7 @@ export default function Dashboard() {
             tabBarIcon: ({ focused }) => (
               <Ionicons
                 name="md-add-circle"
-                color={focused ? "#f02a2a" : "#ddd"}
+                color={focused ? '#f02a2a' : '#ddd'}
                 size={32}
               />
             ),
@@ -64,7 +64,7 @@ export default function Dashboard() {
             tabBarIcon: ({ focused }) => (
               <Ionicons
                 name="md-person"
-                color={focused ? "#f02a2a" : "#ddd"}
+                color={focused ? '#f02a2a' : '#ddd'}
                 size={32}
               />
             ),

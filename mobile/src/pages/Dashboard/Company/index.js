@@ -53,14 +53,14 @@ export default function Company({ route, navigation }) {
           {item.logo ? (
             <CompanyImage
               source={{
-                uri: `http://192.168.0.12:3333/files/${item.logo.path}`,
+                uri: `http://192.168.10.123:3333/files/${item.logo.path}`,
               }}
             />
           ) : (
             <>
               <CategoryImage
                 source={{
-                  uri: `http://192.168.0.12:3333/files/${cat.logo.path}`,
+                  uri: `http://192.168.10.123:3333/files/${cat.logo.path}`,
                 }}
               />
               <CompanyName>{item.name}</CompanyName>

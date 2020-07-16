@@ -1,8 +1,8 @@
-import React, { useState, forwardRef } from "react";
-import { TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import React, { useState, forwardRef } from 'react';
+import { TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-import { Container, TInput } from "./styles";
+import { Container, TInput } from './styles';
 
 function Input({ style, icon, ...rest }, ref) {
   const [visible, setVisible] = useState(false);
@@ -13,12 +13,12 @@ function Input({ style, icon, ...rest }, ref) {
       <TInput
         {...rest}
         ref={ref}
-        secureTextEntry={icon !== "md-lock" ? false : !visible}
+        secureTextEntry={icon !== 'md-lock' ? false : !visible}
       />
-      {icon === "md-lock" && (
+      {icon === 'md-lock' && (
         <TouchableOpacity onPress={() => setVisible(!visible)}>
           <Ionicons
-            name={visible ? "md-eye-off" : "md-eye"}
+            name={visible ? 'md-eye-off' : 'md-eye'}
             size={20}
             color="#a0a0a0"
           />

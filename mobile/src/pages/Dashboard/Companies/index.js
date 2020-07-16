@@ -80,7 +80,7 @@ export default function Companies({ route, navigation }) {
                 {item.logo ? (
                   <CompanyImage
                     source={{
-                      uri: `http://192.168.0.12:3333/files/${item.logo.path}`,
+                      uri: `http://192.168.10.123:3333/files/${item.logo.path}`,
                     }}
                     alt={item.name}
                   />
@@ -88,7 +88,7 @@ export default function Companies({ route, navigation }) {
                   <>
                     <CategoryImage
                       source={{
-                        uri: `http://192.168.0.12:3333/files/${category.logo.path}`,
+                        uri: `http://192.168.10.123:3333/files/${category.logo.path}`,
                       }}
                       alt={item.name}
                     />

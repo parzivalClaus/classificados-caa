@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react';
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import logo from "../../assets/logo.png";
+import logo from '../../assets/logo.png';
 
-import background from "../../assets/background.png";
+import background from '../../assets/background.png';
 
 import {
   BackgroundContainer,
   BackgroundImage,
-} from "../../components/Background";
+} from '../../components/Background';
 
 import {
   Container,
@@ -18,7 +18,7 @@ import {
   SuccessText,
   SignLink,
   SignLinkText,
-} from "./styles";
+} from './styles';
 
 export default function SigninSuccess({ navigation }) {
   return (
@@ -33,7 +33,7 @@ export default function SigninSuccess({ navigation }) {
           seu usuário.
         </SuccessText>
 
-        <SignLink onPress={() => navigation.navigate("Login")}>
+        <SignLink onPress={() => navigation.navigate('Login')}>
           <SignLinkText>Ir para o Login</SignLinkText>
         </SignLink>
       </Container>
