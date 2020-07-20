@@ -20,7 +20,7 @@ export default function CategoryNavigator() {
         options={{
           headerStyle: {
             height: 70,
-            backgroundColor: '#f02a2a',
+            backgroundColor: '#d02a2a',
             elevation: 0,
           },
           headerLeftContainerStyle: {},
@@ -35,7 +35,7 @@ export default function CategoryNavigator() {
           headerShown: true,
           headerStyle: {
             height: 70,
-            backgroundColor: '#f02a2a',
+            backgroundColor: '#d02a2a',
             elevation: 0,
           },
           headerLeftContainerStyle: {},

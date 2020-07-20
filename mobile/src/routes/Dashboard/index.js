@@ -20,7 +20,7 @@ export default function Dashboard() {
       <Tab.Navigator
         tabBarOptions={{
           inactiveBackgroundColor: '#333',
-          activeTintColor: '#f02a2a',
+          activeTintColor: '#d02a2a',
           inactiveTintColor: '#fff',
           activeBackgroundColor: '#333',
           style: {
@@ -38,7 +38,7 @@ export default function Dashboard() {
             tabBarIcon: ({ focused }) => (
               <Ionicons
                 name="md-home"
-                color={focused ? '#f02a2a' : '#fff'}
+                color={focused ? '#d02a2a' : '#fff'}
                 size={32}
               />
             ),
@@ -51,7 +51,7 @@ export default function Dashboard() {
             tabBarIcon: ({ focused }) => (
               <Ionicons
                 name="md-add-circle"
-                color={focused ? '#f02a2a' : '#ddd'}
+                color={focused ? '#d02a2a' : '#ddd'}
                 size={32}
               />
             ),
@@ -64,7 +64,7 @@ export default function Dashboard() {
             tabBarIcon: ({ focused }) => (
               <Ionicons
                 name="md-person"
-                color={focused ? '#f02a2a' : '#ddd'}
+                color={focused ? '#d02a2a' : '#ddd'}
                 size={32}
               />
             ),

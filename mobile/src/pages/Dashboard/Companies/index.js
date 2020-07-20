@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextInput } from 'react-native';
+import { Alert, TextInput } from 'react-native';
 
 import background from '../../../assets/background-gray.png';
 

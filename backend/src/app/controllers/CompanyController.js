@@ -12,10 +12,52 @@ import Queue from '../../lib/Queue';
 
 class CompanyController {
   async index(req, res) {
-    const { categoryId, companyId } = req.params;
+    const { categoryId, companyId, userId } = req.params;
     const { active, q } = req.query;
     const name = q || '';
     const category = await Category.findByPk(categoryId);
+    const user = await User.findByPk(userId);
+
+    if (!categoryId && !companyId && !userId) {
+      const companies = await Company.findAndCountAll({
+        where: {},
+        include: [
+          {
+            model: File,
+            as: 'logo',
+            attributes: ['name', 'path', 'url'],
+          },
+        ],
+        order: [['name', 'ASC']],
+      });
+
+      return res.json(companies);
+    }
+
+    if (userId && !user) {
+      return res.status(400).json({ error: 'Não existe este usuário' });
+    }
+
+    if (userId) {
+      const company = await Company.findOne({
+        where: {
+          creator_id: userId,
+        },
+        include: [
+          {
+            model: File,
+            as: 'logo',
+            attributes: ['name', 'path', 'url'],
+          },
+        ],
+      });
+
+      if (!company) {
+        return res.json({ error: 'Nenhuma empresa cadastrada.' });
+      }
+
+      return res.json(company);
+    }
 
     if (!category) {
       return res.status(400).json({ error: 'Não existe esta categoria' });

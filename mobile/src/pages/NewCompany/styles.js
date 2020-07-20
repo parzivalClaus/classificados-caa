@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { TouchableOpacity } from 'react-native';
+import { TextInputMask } from 'react-native-masked-text';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -21,37 +21,9 @@ export const Container = styled.View`
   flex: 1;
   width: 100%;
   padding: 20px 20px;
-  justify-content: space-between;
 `;
 
-export const LogoutButton = styled(TouchableOpacity)`
-  background-color: #d02a2a;
-  border-radius: 4px;
-`;
-
-export const LogoutText = styled.Text`
-  color: #fff;
-  text-transform: uppercase;
-  padding: 10px;
-  font-size: 18px;
-  text-align: center;
-  font-weight: bold;
-`;
-
-export const DataBox = styled.View`
-  background: #fff;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-`;
-
-export const DataTittle = styled.Text`
-  color: #333;
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: uppercase;
-  text-align: center;
-`;
+export const FormCompany = styled.View``;
 
 export const FormView = styled.View`
   align-self: stretch;
@@ -71,17 +43,14 @@ export const ErrorText = styled.Text`
   margin-top: -7px;
 `;
 
-export const PasswordBox = styled.View`
-  display: ${(props) => (!props.disable ? 'flex' : 'none')};
-`;
-
-export const ChangePasswordButton = styled(TouchableOpacity)`
+export const PhoneMaskInput = styled(TextInputMask)`
+  background: #fff;
+  border: 3px solid #eee;
+  border-radius: 4px;
+  font-size: 17px;
+  padding: 6px;
   margin-bottom: 10px;
-`;
-
-export const ChangePasswordText = styled.Text`
-  color: #f00;
-  font-weight: bold;
+  padding-left: 25px;
 `;
 
 export const SubmitButton = styled(Button)`

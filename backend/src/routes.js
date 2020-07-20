@@ -33,8 +33,10 @@ routes.get('/categories', CategoryController.index);
 routes.post('/categories', CategoryController.store);
 
 routes.post('/companies', CompanyController.store);
+routes.get('/companies', CompanyController.index);
 routes.get('/category/:categoryId/companies', CompanyController.index);
 routes.get('/category/:categoryId/company/:companyId', CompanyController.index);
+routes.get('/user/:userId/company', CompanyController.index);
 routes.put('/company/:companyId', CompanyController.update);
 routes.delete('/company/:companyId', CompanyController.delete);
 
