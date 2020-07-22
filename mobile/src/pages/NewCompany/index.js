@@ -190,7 +190,6 @@ function NewCompany({ navigation }) {
       });
       if (!result.cancelled) {
         setImage(result.uri);
-        console.tron.log(image);
       }
     } catch (err) {
       // console.tron.log(err);

@@ -101,62 +101,6 @@ const EditCompany = ({ route, navigation }) => {
 
     const websiteWithoutProtocol = website.replace(/^\/\/|^.*?:(\/\/)?/, '');
 
-    async function editData(response) {
-      await api.put(`/company/${company.id}`, {
-        name,
-        active: false,
-        logo_id: response.data.id,
-        creator_id: userId,
-        category,
-        phone,
-        whatsapp,
-        email,
-        website: websiteWithoutProtocol,
-        instagram,
-        facebook,
-        street,
-        number,
-        district,
-        state,
-        zipcode,
-        description,
-        discount,
-      });
-
-      Alert.alert(
-        'Alteração feita com sucesso!',
-        'Você será informado por e-mail assim que a sua alteração for aprovada.'
-      );
-    }
-
-    if (image && image !== company.logo.path) {
-      const data = new FormData();
-
-      data.append('file', {
-        type: 'image/jpeg',
-        uri: Platform.OS === 'android' ? image : image.replace('file://', ''),
-        name: image.split('/')[11],
-      });
-
-      const response = await api.post('files', data);
-
-      Alert.alert(
-        'Deseja mesmo alterar os dados?',
-        'Alterar os dados da sua empresa mudará o status para "Aprovação", e só será exibida após aprovação do C.A.A.',
-        [
-          {
-            text: 'Cancelar',
-            onPress: () => {
-              return null;
-            },
-            style: 'cancel',
-          },
-          { text: 'Confirmar', onPress: () => editData(response) },
-        ],
-        { cancelable: false }
-      );
-    }
-
     async function editDataWithoutImage() {
       await api.put(`/company/${company.id}`, {
         name,
@@ -184,6 +128,66 @@ const EditCompany = ({ route, navigation }) => {
       );
     }
 
+    async function editData(id) {
+      await api.put(`/company/${company.id}`, {
+        name,
+        active: false,
+        logo_id: id,
+        creator_id: userId,
+        category,
+        phone,
+        whatsapp,
+        email,
+        website: websiteWithoutProtocol,
+        instagram,
+        facebook,
+        street,
+        number,
+        district,
+        state,
+        zipcode,
+        description,
+        discount,
+      });
+
+      Alert.alert(
+        'Alteração feita com sucesso!',
+        'Você será informado por e-mail assim que a sua alteração for aprovada.'
+      );
+    }
+
+    if (image) {
+      if (!company.logo || company.logo.path !== image) {
+        const data = new FormData();
+
+        data.append('file', {
+          type: 'image/jpeg',
+          uri: Platform.OS === 'android' ? image : image.replace('file://', ''),
+          name: image.split('/')[11],
+        });
+
+        const response = await api.post('files', data);
+
+        Alert.alert(
+          'batataDeseja mesmo alterar os dados?',
+          'Alterar os dados da sua empresa mudará o status para "Aprovação", e só será exibida após aprovação do C.A.A.',
+          [
+            {
+              text: 'Cancelar',
+              onPress: () => {
+                return null;
+              },
+              style: 'cancel',
+            },
+            { text: 'Confirmar', onPress: () => editData(response.data.id) },
+          ],
+          { cancelable: false }
+        );
+
+        return null;
+      }
+    }
+
     Alert.alert(
       'Deseja mesmo alterar os dados?',
       'Alterar os dados da sua empresa mudará o status para "Aprovação", e só será exibida após aprovação do C.A.A.',
@@ -199,7 +203,6 @@ const EditCompany = ({ route, navigation }) => {
       ],
       { cancelable: false }
     );
-
     return null;
   }
 
@@ -339,7 +342,6 @@ const EditCompany = ({ route, navigation }) => {
                     placeholder={
                       company && company.phone ? values.phone : 'Telefone '
                     }
-                    // onSubmitEditing={() => emailRef.current.focus()}
                     value={values.phone}
                     onBlur={() => setFieldTouched('phone')}
                     onChangeText={handleChange('phone')}
@@ -361,7 +363,6 @@ const EditCompany = ({ route, navigation }) => {
                         ? values.whatsapp
                         : 'Celular / Whatsapp '
                     }
-                    // onSubmitEditing={() => emailRef.current.focus()}
                     value={values.whatsapp}
                     onBlur={() => setFieldTouched('whatsapp')}
                     onChangeText={handleChange('whatsapp')}
@@ -375,7 +376,6 @@ const EditCompany = ({ route, navigation }) => {
                   placeholder={
                     company && company.email ? values.email : 'E-mail'
                   }
-                  // onSubmitEditing={() => emailRef.current.focus()}
                   value={values.email}
                   onBlur={() => setFieldTouched('email')}
                   onChangeText={handleChange('email')}
@@ -387,7 +387,6 @@ const EditCompany = ({ route, navigation }) => {
                   placeholder={
                     company && company.website ? values.website : 'Site'
                   }
-                  // onSubmitEditing={() => emailRef.current.focus()}
                   value={values.website}
                   onBlur={() => setFieldTouched('website')}
                   onChangeText={handleChange('website')}
@@ -401,7 +400,6 @@ const EditCompany = ({ route, navigation }) => {
                       ? values.instagram
                       : 'Instagram'
                   }
-                  // onSubmitEditing={() => emailRef.current.focus()}
                   value={values.instagram}
                   onBlur={() => setFieldTouched('instagram')}
                   onChangeText={handleChange('instagram')}
@@ -413,7 +411,6 @@ const EditCompany = ({ route, navigation }) => {
                   placeholder={
                     company && company.facebook ? values.facebook : 'Facebook'
                   }
-                  // onSubmitEditing={() => emailRef.current.focus()}
                   value={values.facebook}
                   onBlur={() => setFieldTouched('facebook')}
                   onChangeText={handleChange('facebook')}
@@ -427,7 +424,6 @@ const EditCompany = ({ route, navigation }) => {
                   placeholder={
                     company && company.street ? values.street : 'Rua'
                   }
-                  // onSubmitEditing={() => emailRef.current.focus()}
                   value={values.street}
                   onBlur={() => setFieldTouched('street')}
                   onChangeText={handleChange('street')}
@@ -440,7 +436,6 @@ const EditCompany = ({ route, navigation }) => {
                   placeholder={
                     company && company.number ? values.number : 'Número'
                   }
-                  // onSubmitEditing={() => emailRef.current.focus()}
                   value={values.number}
                   onBlur={() => setFieldTouched('number')}
                   onChangeText={handleChange('number')}
@@ -452,7 +447,6 @@ const EditCompany = ({ route, navigation }) => {
                   placeholder={
                     company && company.district ? values.district : 'Bairro'
                   }
-                  // onSubmitEditing={() => emailRef.current.focus()}
                   value={values.district}
                   onBlur={() => setFieldTouched('district')}
                   onChangeText={handleChange('district')}
@@ -470,7 +464,6 @@ const EditCompany = ({ route, navigation }) => {
                     placeholder={
                       company && company.state ? values.state : 'Estado '
                     }
-                    // onSubmitEditing={() => emailRef.csurrent.focus()}
                     value={values.state}
                     onBlur={() => setFieldTouched('state')}
                     onChangeText={handleChange('state')}
@@ -484,7 +477,6 @@ const EditCompany = ({ route, navigation }) => {
                     placeholder={
                       company && company.zipcode ? values.zipcode : 'CEP '
                     }
-                    // onSubmitEditing={() => emailRef.current.focus()}
                     value={values.zipcode}
                     onBlur={() => setFieldTouched('zipcode')}
                     onChangeText={handleChange('zipcode')}
@@ -506,7 +498,6 @@ const EditCompany = ({ route, navigation }) => {
                     lineHeight: 50,
                   }}
                   placeholder={company ? values.description : 'Descrição'}
-                  // onSubmitEditing={() => emailRef.current.focus()}
                   value={values.description}
                   onBlur={() => setFieldTouched('description')}
                   onChangeText={handleChange('description')}
@@ -522,7 +513,6 @@ const EditCompany = ({ route, navigation }) => {
                   placeholder={
                     company && company.discount ? values.discount : 'Desconto'
                   }
-                  // onSubmitEditing={() => emailRef.current.focus()}
                   value={values.discount}
                   onBlur={() => setFieldTouched('discount')}
                   onChangeText={handleChange('discount')}
