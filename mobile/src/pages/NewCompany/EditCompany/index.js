@@ -101,17 +101,7 @@ const EditCompany = ({ route, navigation }) => {
 
     const websiteWithoutProtocol = website.replace(/^\/\/|^.*?:(\/\/)?/, '');
 
-    if (image && image !== company.logo) {
-      const data = new FormData();
-
-      data.append('file', {
-        type: 'image/jpeg',
-        uri: Platform.OS === 'android' ? image : image.replace('file://', ''),
-        name: image.split('/')[11],
-      });
-
-      const response = await api.post('files', data);
-
+    async function editData(response) {
       await api.put(`/company/${company.id}`, {
         name,
         active: false,
@@ -133,30 +123,84 @@ const EditCompany = ({ route, navigation }) => {
         discount,
       });
 
-      return Alert.alert('Sucesso');
+      Alert.alert(
+        'Alteração feita com sucesso!',
+        'Você será informado por e-mail assim que a sua alteração for aprovada.'
+      );
     }
 
-    await api.put(`/company/${company.id}`, {
-      name,
-      active: false,
-      creator_id: userId,
-      category,
-      phone,
-      whatsapp,
-      email,
-      website: websiteWithoutProtocol,
-      instagram,
-      facebook,
-      street,
-      number,
-      district,
-      state,
-      zipcode,
-      description,
-      discount,
-    });
+    if (image && image !== company.logo.path) {
+      const data = new FormData();
 
-    return Alert.alert('Sucesso');
+      data.append('file', {
+        type: 'image/jpeg',
+        uri: Platform.OS === 'android' ? image : image.replace('file://', ''),
+        name: image.split('/')[11],
+      });
+
+      const response = await api.post('files', data);
+
+      Alert.alert(
+        'Deseja mesmo alterar os dados?',
+        'Alterar os dados da sua empresa mudará o status para "Aprovação", e só será exibida após aprovação do C.A.A.',
+        [
+          {
+            text: 'Cancelar',
+            onPress: () => {
+              return null;
+            },
+            style: 'cancel',
+          },
+          { text: 'Confirmar', onPress: () => editData(response) },
+        ],
+        { cancelable: false }
+      );
+    }
+
+    async function editDataWithoutImage() {
+      await api.put(`/company/${company.id}`, {
+        name,
+        active: false,
+        creator_id: userId,
+        category,
+        phone,
+        whatsapp,
+        email,
+        website: websiteWithoutProtocol,
+        instagram,
+        facebook,
+        street,
+        number,
+        district,
+        state,
+        zipcode,
+        description,
+        discount,
+      });
+
+      Alert.alert(
+        'Alteração feita com sucesso!',
+        'Você será informado por e-mail assim que a sua alteração for aprovada.'
+      );
+    }
+
+    Alert.alert(
+      'Deseja mesmo alterar os dados?',
+      'Alterar os dados da sua empresa mudará o status para "Aprovação", e só será exibida após aprovação do C.A.A.',
+      [
+        {
+          text: 'Cancelar',
+          onPress: () => {
+            return null;
+          },
+          style: 'cancel',
+        },
+        { text: 'Confirmar', onPress: () => editDataWithoutImage() },
+      ],
+      { cancelable: false }
+    );
+
+    return null;
   }
 
   useEffect(() => {
@@ -489,7 +533,7 @@ const EditCompany = ({ route, navigation }) => {
                   loading={loading}
                   onPress={() => handleEditCompany(values)}
                 >
-                  Editar
+                  Salvar
                 </SubmitButton>
               </FormView>
             )}

@@ -158,7 +158,10 @@ function NewCompany({ navigation }) {
       discount,
     });
 
-    return Alert.alert('Sucesso');
+    return Alert.alert(
+      'Cadastro realizado com sucesso!',
+      'Sua empresa está "aguardando aprovação". Assim que for aprovada pelo C.A.A vocẽ será informado por e-mail.'
+    );
   }
 
   async function getPermissionAsync() {
@@ -205,8 +208,8 @@ function NewCompany({ navigation }) {
         {company ? (
           <>
             <HasCompanyText>
-              Detectamos que você já possui uma empresa cadastrada. Para
-              editá-la, clique no link abaixo:
+              Você já possui uma empresa cadastrada. Para editá-la, clique{' '}
+              {company.data.logo ? 'no logo' : 'no link'} abaixo:
             </HasCompanyText>
             <CompanyImageLink
               onPress={() =>
