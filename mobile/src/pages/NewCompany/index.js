@@ -72,8 +72,10 @@ function NewCompany({ navigation }) {
     setCategory('');
     setImage(null);
     loadCategories();
-    if (!company) {
+    try {
       formikRef.current.resetForm();
+    } catch (err) {
+      console.tron.log(err);
     }
     setLoading(false);
   }
@@ -134,7 +136,10 @@ function NewCompany({ navigation }) {
         discount,
       });
 
-      return Alert.alert('Sucesso');
+      return Alert.alert(
+        'Cadastro realizado com sucesso!',
+        'Sua empresa está "aguardando aprovação". Assim que for aprovada pelo C.A.A vocẽ será informado por e-mail.'
+      );
     }
 
     await api.post(`/companies`, {
@@ -291,7 +296,6 @@ function NewCompany({ navigation }) {
                     autoCorrect={false}
                     returnKeyType="next"
                     placeholder={company ? values.name : 'Nome da Empresa *'}
-                    // onSubmitEditing={() => emailRef.current.focus()}
                     value={values.name}
                     onBlur={() => setFieldTouched('name')}
                     onChangeText={handleChange('name')}
@@ -350,7 +354,6 @@ function NewCompany({ navigation }) {
                           ? values.phone
                           : 'Telefone '
                       }
-                      // onSubmitEditing={() => emailRef.current.focus()}
                       value={values.phone}
                       onBlur={() => setFieldTouched('phone')}
                       onChangeText={handleChange('phone')}
@@ -371,7 +374,6 @@ function NewCompany({ navigation }) {
                           ? values.whatsapp
                           : 'Celular / Whatsapp '
                       }
-                      // onSubmitEditing={() => emailRef.current.focus()}
                       value={values.whatsapp}
                       onBlur={() => setFieldTouched('whatsapp')}
                       onChangeText={handleChange('whatsapp')}
@@ -385,7 +387,6 @@ function NewCompany({ navigation }) {
                     placeholder={
                       company && company.data.email ? values.email : 'E-mail'
                     }
-                    // onSubmitEditing={() => emailRef.current.focus()}
                     value={values.email}
                     onBlur={() => setFieldTouched('email')}
                     onChangeText={handleChange('email')}
@@ -397,7 +398,6 @@ function NewCompany({ navigation }) {
                     placeholder={
                       company && company.data.website ? values.website : 'Site'
                     }
-                    // onSubmitEditing={() => emailRef.current.focus()}
                     value={values.website}
                     onBlur={() => setFieldTouched('website')}
                     onChangeText={handleChange('website')}
@@ -411,7 +411,6 @@ function NewCompany({ navigation }) {
                         ? values.instagram
                         : 'Instagram'
                     }
-                    // onSubmitEditing={() => emailRef.current.focus()}
                     value={values.instagram}
                     onBlur={() => setFieldTouched('instagram')}
                     onChangeText={handleChange('instagram')}
@@ -425,7 +424,6 @@ function NewCompany({ navigation }) {
                         ? values.facebook
                         : 'Facebook'
                     }
-                    // onSubmitEditing={() => emailRef.current.focus()}
                     value={values.facebook}
                     onBlur={() => setFieldTouched('facebook')}
                     onChangeText={handleChange('facebook')}
@@ -439,7 +437,6 @@ function NewCompany({ navigation }) {
                     placeholder={
                       company && company.data.street ? values.street : 'Rua'
                     }
-                    // onSubmitEditing={() => emailRef.current.focus()}
                     value={values.street}
                     onBlur={() => setFieldTouched('street')}
                     onChangeText={handleChange('street')}
@@ -452,7 +449,6 @@ function NewCompany({ navigation }) {
                     placeholder={
                       company && company.data.number ? values.number : 'Número'
                     }
-                    // onSubmitEditing={() => emailRef.current.focus()}
                     value={values.number}
                     onBlur={() => setFieldTouched('number')}
                     onChangeText={handleChange('number')}
@@ -466,7 +462,6 @@ function NewCompany({ navigation }) {
                         ? values.district
                         : 'Bairro'
                     }
-                    // onSubmitEditing={() => emailRef.current.focus()}
                     value={values.district}
                     onBlur={() => setFieldTouched('district')}
                     onChangeText={handleChange('district')}
@@ -483,7 +478,6 @@ function NewCompany({ navigation }) {
                       placeholder={
                         company && company.data.state ? values.state : 'Estado '
                       }
-                      // onSubmitEditing={() => emailRef.csurrent.focus()}
                       value={values.state}
                       onBlur={() => setFieldTouched('state')}
                       onChangeText={handleChange('state')}
@@ -500,7 +494,6 @@ function NewCompany({ navigation }) {
                           ? values.zipcode
                           : 'CEP '
                       }
-                      // onSubmitEditing={() => emailRef.current.focus()}
                       value={values.zipcode}
                       onBlur={() => setFieldTouched('zipcode')}
                       onChangeText={handleChange('zipcode')}
@@ -521,7 +514,6 @@ function NewCompany({ navigation }) {
                       lineHeight: 50,
                     }}
                     placeholder={company ? values.description : 'Descrição'}
-                    // onSubmitEditing={() => emailRef.current.focus()}
                     value={values.description}
                     onBlur={() => setFieldTouched('description')}
                     onChangeText={handleChange('description')}
@@ -539,7 +531,6 @@ function NewCompany({ navigation }) {
                         ? values.discount
                         : 'Desconto'
                     }
-                    // onSubmitEditing={() => emailRef.current.focus()}
                     value={values.discount}
                     onBlur={() => setFieldTouched('discount')}
                     onChangeText={handleChange('discount')}

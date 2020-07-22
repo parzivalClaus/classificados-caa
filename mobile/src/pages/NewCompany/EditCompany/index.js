@@ -223,7 +223,7 @@ const EditCompany = ({ route, navigation }) => {
             initialValues={{
               name: company ? company.name : '',
               phone: company && company ? company.phone : '',
-              whatsapp: company ? company.phone : '',
+              whatsapp: company ? company.whatsapp : '',
               email: company ? company.email : '',
               website: company ? company.website : '',
               instagram: company ? company.instagram : '',
