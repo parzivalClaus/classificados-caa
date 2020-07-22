@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { TouchableOpacity } from 'react-native';
 
 import { TextInputMask } from 'react-native-masked-text';
 
@@ -20,20 +21,85 @@ export const Logo = styled.Image`
 export const Container = styled.View`
   flex: 1;
   width: 100%;
-  padding: 20px 20px;
+  padding: 20px 35px;
 `;
 
-export const FormCompany = styled.View``;
+export const HasCompanyText = styled.Text`
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+`;
 
-export const FormView = styled.View`
+export const CompanyImageLink = styled(TouchableOpacity)``;
+
+export const CompanyImage = styled.Image`
+  width: 80%;
+  padding-top: 80%;
+  margin: 0 auto;
+  margin-top: 25px;
+`;
+
+export const CategoryImage = styled.Image`
+  width: 80%;
+  padding-top: 80%;
+  margin: 0 auto;
+  margin-top: 25px;
+  border: 3px #eee;
+`;
+
+export const CompanyTitle = styled.Text`
+  font-size: 18px;
+  text-align: center;
+  margin-top: 30px;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #d02a2a;
+`;
+
+export const LogoBox = styled(TouchableOpacity)`
+  width: 150px;
+  height: 150px;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border: 6px solid #eee;
+`;
+
+export const LogoText = styled.Text`
+  font-size: 15px;
+  font-weight: bold;
+`;
+
+export const FormCompany = styled.View`
+  display: ${(props) => (!props.disable ? 'flex' : 'none')};
+`;
+
+export const FormView = styled.ScrollView`
   align-self: stretch;
   margin-top: 15px;
+`;
+
+export const DataTitleText = styled.Text`
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
 `;
 
 export const FormInput = styled(Input)`
   margin-bottom: 10px;
   border: 3px solid #eee;
   display: ${(props) => (!props.disable ? 'flex' : 'none')};
+`;
+
+export const BoxInput = styled.View`
+  padding: 6px 25px;
+  background: #fff;
+  border: 3px solid #eee;
+  margin-bottom: 10px;
 `;
 
 export const ErrorText = styled.Text`
@@ -44,13 +110,8 @@ export const ErrorText = styled.Text`
 `;
 
 export const PhoneMaskInput = styled(TextInputMask)`
-  background: #fff;
-  border: 3px solid #eee;
-  border-radius: 4px;
+  color: #a0a0a0;
   font-size: 17px;
-  padding: 6px;
-  margin-bottom: 10px;
-  padding-left: 25px;
 `;
 
 export const SubmitButton = styled(Button)`

@@ -6,10 +6,8 @@ import PropTypes from 'prop-types';
 
 import { Ionicons } from '@expo/vector-icons';
 import Category from './Category';
-import NewCompany from '../../pages/NewCompany';
+import NewCompany from './NewCompany';
 import Profile from '../../pages/Profile';
-
-import { signOut } from '../../store/modules/auth/actions';
 
 const Tab = createBottomTabNavigator();
 

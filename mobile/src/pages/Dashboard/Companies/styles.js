@@ -33,7 +33,7 @@ export const CompanyBox = styled(TouchableOpacity)`
   border: 1px solid #eee;
   align-items: center;
   padding: 10px;
-  height: 140px;
+  height: 170px;
 `;
 
 export const CategoryImage = styled.Image`
@@ -42,8 +42,8 @@ export const CategoryImage = styled.Image`
 `;
 
 export const CompanyImage = styled.Image`
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
 `;
 
 export const CompanyTitle = styled.Text`
