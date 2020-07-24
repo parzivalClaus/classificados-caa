@@ -1,30 +1,37 @@
-import { toast } from 'react-toastify';
 import { takeLatest, call, put, all } from 'redux-saga/effects';
+import { toast } from 'react-toastify';
+
+import history from '~/services/history';
+import api from '~/services/api';
 
 import { signInSuccess, signFailure } from './actions';
 
-import api from '~/services/api';
-
 export function* signIn({ payload }) {
-  const { email, password } = payload;
-
   try {
-    const response = yield call(api.post, `sessions`, { email, password });
+    const { email, password } = payload;
+
+    const response = yield call(api.post, 'sessions', {
+      email,
+      password,
+    });
+
+    const { token, user } = response.data;
 
     if (!response.data.user.admin) {
-      toast.error('Somente administradores podem acessar a versão web.');
+      toast.warning('Somente administradores podem acessar a versão web.');
       yield put(signFailure());
       return;
     }
 
-    const { token, user } = response.data;
-
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
     yield put(signInSuccess(token, user));
+
+    history.push('/dashboard');
   } catch (err) {
+    toast.warning(err.response.data.error);
+
     yield put(signFailure());
-    toast.error(err.response.data.error);
   }
 }
 
@@ -38,7 +45,12 @@ export function setToken({ payload }) {
   }
 }
 
+export function signOut() {
+  history.push('/');
+}
+
 export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
+  takeLatest('@auth/SIGN_OUT', signOut),
 ]);
