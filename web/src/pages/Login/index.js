@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import { toast } from 'react-toastify';
 
 import { Container } from './styles';
 
-export default function Login({ history }) {
+export default function Login() {
   return (
     <Container>
       <h1>Login</h1>

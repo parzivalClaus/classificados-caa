@@ -1,0 +1,44 @@
+import { toast } from 'react-toastify';
+import { takeLatest, call, put, all } from 'redux-saga/effects';
+
+import { signInSuccess, signFailure } from './actions';
+
+import api from '~/services/api';
+
+export function* signIn({ payload }) {
+  const { email, password } = payload;
+
+  try {
+    const response = yield call(api.post, `sessions`, { email, password });
+
+    if (!response.data.user.admin) {
+      toast.error('Somente administradores podem acessar a versão web.');
+      yield put(signFailure());
+      return;
+    }
+
+    const { token, user } = response.data;
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
+    yield put(signInSuccess(token, user));
+  } catch (err) {
+    yield put(signFailure());
+    toast.error(err.response.data.error);
+  }
+}
+
+export function setToken({ payload }) {
+  if (!payload) return;
+
+  const { token } = payload.auth;
+
+  if (token) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+}
+
+export default all([
+  takeLatest('persist/REHYDRATE', setToken),
+  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
+]);
