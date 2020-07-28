@@ -1,9 +1,15 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import SideMenu from '~/components/SideMenu';
+
+import { Container } from './styles';
 
 function Profile() {
-  return <h1>Profile</h1>;
+  return (
+    <Container>
+      <SideMenu />
+    </Container>
+  );
 }
 
 export default Profile;

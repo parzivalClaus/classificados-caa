@@ -1,0 +1,27 @@
+Arguments: 
+  /home/claudio/.nvm/versions/node/v12.18.2/bin/node /home/claudio/.nvm/versions/node/v12.18.2/bin/yarn add react-icons
+
+PATH: 
+  /home/claudio/.nvm/versions/node/v12.18.2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  12.18.2
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: read ECONNRESET
+      at TLSWrap.onStreamRead (internal/stream_base_commons.js:205:27)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
