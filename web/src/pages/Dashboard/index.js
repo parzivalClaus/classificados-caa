@@ -19,6 +19,8 @@ export default function Dashboard() {
       companies.data.rows.filter((company) => company.active).length
     );
 
+    console.tron.log(activeCompanies);
+
     setPendingCompanies(
       companies.data.rows.filter((company) => !company.active).length
     );

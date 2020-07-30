@@ -3,11 +3,11 @@ import { darken } from 'polished';
 
 export const Content = styled.div`
   display: flex;
+  width: 270px;
   flex-direction: column;
   background: #d02a2a;
   justify-content: space-between;
   align-items: center;
-  width: 270px;
   height: 100%;
   border-right: 8px #333 solid;
 

@@ -20,7 +20,9 @@ function SideMenu() {
   return (
     <Content>
       <div class="topContent">
-        <img src={logo} alt="Classificados C.A.A." />
+        <NavLink id="dashboard" to="/">
+          <img src={logo} alt="Classificados C.A.A." />
+        </NavLink>
         <hr />
 
         <ul>
@@ -50,8 +52,8 @@ function SideMenu() {
           <li>
             <NavLink
               activeStyle={{ color: '#000' }}
-              id="companiesActive"
-              to="/active-companies/"
+              id="usersActive"
+              to="/active-users/"
             >
               ATIVOS
             </NavLink>
@@ -59,8 +61,8 @@ function SideMenu() {
           <li>
             <NavLink
               activeStyle={{ color: '#000' }}
-              id="companiesPending"
-              to="/pending-companies/"
+              id="usersPending"
+              to="/pending-users/"
             >
               AGUARDANDO
             </NavLink>

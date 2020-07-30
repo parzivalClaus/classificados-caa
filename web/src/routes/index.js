@@ -6,6 +6,7 @@ import Login from '~/pages/Login';
 import Dashboard from '~/pages/Dashboard';
 import Profile from '~/pages/Profile';
 import ActiveUser from '~/pages/ActiveUser';
+import ActiveCompanies from '~/pages/ActiveCompanies';
 
 export default function Routes() {
   return (
@@ -15,6 +16,12 @@ export default function Routes() {
 
       <Route path="/dashboard" exact component={Dashboard} isPrivate />
       <Route path="/profile" exact component={Profile} isPrivate />
+      <Route
+        path="/active-companies"
+        exact
+        component={ActiveCompanies}
+        isPrivate
+      />
     </Switch>
   );
 }
