@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "babel-plugin-dotenv-import": "^2.1.0"
-  }
-}
