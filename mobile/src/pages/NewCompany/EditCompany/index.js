@@ -169,7 +169,7 @@ const EditCompany = ({ route, navigation }) => {
         const response = await api.post('files', data);
 
         Alert.alert(
-          'batataDeseja mesmo alterar os dados?',
+          'Deseja mesmo alterar os dados?',
           'Alterar os dados da sua empresa mudará o status para "Aprovação", e só será exibida após aprovação do C.A.A.',
           [
             {

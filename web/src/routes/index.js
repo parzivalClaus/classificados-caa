@@ -7,6 +7,8 @@ import Dashboard from '~/pages/Dashboard';
 import Profile from '~/pages/Profile';
 import ActiveUser from '~/pages/ActiveUser';
 import ActiveCompanies from '~/pages/ActiveCompanies';
+import PendingCompanies from '~/pages/PendingCompanies';
+import EditCompany from '~/pages/EditCompany';
 
 export default function Routes() {
   return (
@@ -20,6 +22,18 @@ export default function Routes() {
         path="/active-companies"
         exact
         component={ActiveCompanies}
+        isPrivate
+      />
+      <Route
+        path="/pending-companies"
+        exact
+        component={PendingCompanies}
+        isPrivate
+      />
+      <Route
+        path="/edit-company/:companyId"
+        exact
+        component={EditCompany}
         isPrivate
       />
     </Switch>

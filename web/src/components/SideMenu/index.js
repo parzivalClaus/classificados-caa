@@ -19,7 +19,7 @@ function SideMenu() {
 
   return (
     <Content>
-      <div class="topContent">
+      <div className="topContent">
         <NavLink id="dashboard" to="/">
           <img src={logo} alt="Classificados C.A.A." />
         </NavLink>
@@ -70,7 +70,7 @@ function SideMenu() {
         </ul>
       </div>
 
-      <div class="bottomContent">
+      <div className="bottomContent">
         <button onClick={handleSignOut}>Sair do Sistema</button>
       </div>
     </Content>

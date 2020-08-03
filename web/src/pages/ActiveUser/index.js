@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-import { useParams } from 'react-router-dom';
-
 import api from '~/services/api';
 
 import logo from '~/assets/logo.png';
 
 import { Container } from './styles';
-import { toast } from 'react-toastify';
 
 function ActiveUser(props) {
   const [msg, setMsg] = useState('');
@@ -32,7 +29,7 @@ function ActiveUser(props) {
 
   useEffect(() => {
     ActiveUserFunction();
-  }, []);
+  });
 
   return (
     <Container error={error}>

@@ -34,6 +34,17 @@ export const GridBox = styled.div`
     font-size: 18px;
     padding: 20px 0;
     border-bottom: 2px solid #fee;
+    display: flex;
+    align-items: center;
+
+    button {
+      background: #d02a2a;
+      border: 0;
+      color: #fff;
+      padding: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
   }
 `;
 

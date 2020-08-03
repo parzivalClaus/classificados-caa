@@ -13,7 +13,8 @@ import Queue from '../../lib/Queue';
 class CompanyController {
   async index(req, res) {
     const { categoryId, companyId, userId } = req.params;
-    const { active, q } = req.query;
+    const { page, active, q } = req.query;
+    const atualPage = page || '1';
     const name = q || '';
     const category = await Category.findByPk(categoryId);
     const user = await User.findByPk(userId);
@@ -23,12 +24,19 @@ class CompanyController {
         where: {},
         include: [
           {
+            model: User,
+            as: 'creator',
+            attributes: ['name'],
+          },
+          {
             model: File,
             as: 'logo',
-            attributes: ['name', 'path', 'url'],
+            attributes: ['name', 'path', 'url', 'id'],
           },
         ],
         order: [['name', 'ASC']],
+        limit: 10,
+        offset: (atualPage - 1) * 10,
       });
 
       return res.json(companies);
@@ -98,6 +106,8 @@ class CompanyController {
         },
       ],
       order: [['name', 'ASC']],
+      limit: 10,
+      offset: (atualPage - 1) * 10,
     });
 
     return res.json(companies);

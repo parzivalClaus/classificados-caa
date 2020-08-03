@@ -4,11 +4,12 @@ import SideMenu from '~/components/SideMenu';
 
 import { Container, Content, GridBox, GridTitle, Button } from './styles';
 
+import history from '~/services/history';
 import api from '~/services/api';
 
-export default function ActiveCompanies() {
+export default function PendingCompanies() {
   const [page, setPage] = useState(1);
-  const [activeCompanies, setActiveCompanies] = useState();
+  const [pendingCompanies, setPendingCompanies] = useState();
   const [reg, setReg] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -19,8 +20,8 @@ export default function ActiveCompanies() {
       const companies = await api.get('companies', {
         params: { page },
       });
-      setActiveCompanies(
-        companies.data.rows.filter((company) => company.active)
+      setPendingCompanies(
+        companies.data.rows.filter((company) => company.active === false)
       );
       setReg(companies.data.count);
       setLoading(false);
@@ -44,19 +45,30 @@ export default function ActiveCompanies() {
         <GridBox>
           <GridTitle>Nome da Empresa</GridTitle>
           <GridTitle>Categoria</GridTitle>
-          <GridTitle>Usuário</GridTitle>
-          {activeCompanies &&
-            activeCompanies.map((company) => (
+          <GridTitle>Ações</GridTitle>
+          {pendingCompanies &&
+            pendingCompanies.map((company) => (
               <>
                 <div class="grid-cell">{company.name}</div>
                 <div class="grid-cell">{company.category}</div>
-                <div class="grid-cell">{company.creator.name}</div>
+                <div class="grid-cell">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      history.push(`/edit-company/${company.id}`, {
+                        company,
+                      })
+                    }
+                  >
+                    Editar
+                  </button>
+                </div>
               </>
             ))}
         </GridBox>
 
         <footer>
-          {activeCompanies ? (
+          {pendingCompanies ? (
             <>
               <Button
                 type="button"
@@ -71,8 +83,8 @@ export default function ActiveCompanies() {
                 disabled={
                   (page !== 1 && reg / 10 <= page) ||
                   (page === 1 &&
-                    activeCompanies &&
-                    activeCompanies.length < 10) ||
+                    pendingCompanies &&
+                    pendingCompanies.length < 10) ||
                   reg === 10
                 }
               >
