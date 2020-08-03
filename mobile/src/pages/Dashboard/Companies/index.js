@@ -21,6 +21,8 @@ import {
 
 import api from '../../../services/api';
 
+import { API_URL } from '@env';
+
 export default function Companies({ route, navigation }) {
   const { item } = route.params;
   const [category, setCategory] = useState({});
@@ -80,7 +82,7 @@ export default function Companies({ route, navigation }) {
                 {item.logo ? (
                   <CompanyImage
                     source={{
-                      uri: `http://192.168.10.123:3333/files/${item.logo.path}`,
+                      uri: `${API_URL}/files/${item.logo.path}`,
                     }}
                     alt={item.name}
                   />
@@ -88,7 +90,7 @@ export default function Companies({ route, navigation }) {
                   <>
                     <CategoryImage
                       source={{
-                        uri: `http://192.168.10.123:3333/files/${category.logo.path}`,
+                        uri: `${API_URL}/files/${category.logo.path}`,
                       }}
                       alt={item.name}
                     />

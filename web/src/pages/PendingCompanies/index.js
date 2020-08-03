@@ -46,7 +46,8 @@ export default function PendingCompanies() {
           <GridTitle>Nome da Empresa</GridTitle>
           <GridTitle>Categoria</GridTitle>
           <GridTitle>Ações</GridTitle>
-          {pendingCompanies &&
+          {loading === false &&
+            pendingCompanies &&
             pendingCompanies.map((company) => (
               <>
                 <div class="grid-cell">{company.name}</div>

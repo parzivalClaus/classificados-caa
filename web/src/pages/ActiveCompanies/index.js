@@ -45,7 +45,8 @@ export default function ActiveCompanies() {
           <GridTitle>Nome da Empresa</GridTitle>
           <GridTitle>Categoria</GridTitle>
           <GridTitle>Usuário</GridTitle>
-          {activeCompanies &&
+          {loading === false &&
+            activeCompanies &&
             activeCompanies.map((company) => (
               <>
                 <div class="grid-cell">{company.name}</div>

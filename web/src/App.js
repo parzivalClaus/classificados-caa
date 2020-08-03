@@ -1,5 +1,3 @@
-import 'dotenv/config';
-
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import { PersistGate } from 'redux-persist/integration/react';

@@ -3,6 +3,8 @@ import { TextInput, Alert } from 'react-native';
 
 import api from '../../services/api';
 
+import { API_URL } from '@env';
+
 import logo2 from '../../assets/logo2.png';
 import background from '../../assets/background-gray.png';
 
@@ -73,7 +75,7 @@ function Dashboard({ navigation }) {
               >
                 <CategoryImage
                   source={{
-                    uri: `http://192.168.10.123:3333/files/${item.logo.path}`,
+                    uri: `${API_URL}/files/${item.logo.path}`,
                   }}
                   alt={item.name}
                 />

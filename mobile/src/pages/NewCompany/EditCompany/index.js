@@ -27,6 +27,8 @@ import {
 
 import api from '../../../services/api';
 
+import { API_URL } from '@env';
+
 import background from '../../../assets/background-gray.png';
 
 import {
@@ -262,7 +264,7 @@ const EditCompany = ({ route, navigation }) => {
                       source={{
                         uri:
                           company.logo && company.logo.path === image
-                            ? `http://192.168.10.123:3333/files/${company.logo.path}`
+                            ? `${API_URL}/files/${company.logo.path}`
                             : image,
                       }}
                       style={{

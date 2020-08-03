@@ -9,6 +9,8 @@ import {
   BackgroundImage,
 } from '../../../components/Background';
 
+import { API_URL } from '@env';
+
 import {
   Container,
   CompanyBox,
@@ -53,14 +55,14 @@ export default function Company({ route, navigation }) {
           {item.logo ? (
             <CompanyImage
               source={{
-                uri: `http://192.168.10.123:3333/files/${item.logo.path}`,
+                uri: `${API_URL}/files/${item.logo.path}`,
               }}
             />
           ) : (
             <>
               <CategoryImage
                 source={{
-                  uri: `http://192.168.10.123:3333/files/${cat.logo.path}`,
+                  uri: `${API_URL}/files/${cat.logo.path}`,
                 }}
               />
               <CompanyName>{item.name}</CompanyName>

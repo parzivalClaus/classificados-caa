@@ -17,6 +17,8 @@ import background from '../../assets/background-gray.png';
 
 import api from '../../services/api';
 
+import { API_URL } from '@env';
+
 import {
   BackgroundContainer,
   BackgroundImage,
@@ -223,7 +225,7 @@ function NewCompany({ navigation }) {
               {company.data.logo ? (
                 <CompanyImage
                   source={{
-                    uri: `http://192.168.10.123:3333/files/${company.data.logo.path}`,
+                    uri: `${API_URL}/files/${company.data.logo.path}`,
                   }}
                   alt={company.name}
                 />
