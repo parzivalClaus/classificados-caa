@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { MdKeyboardArrowLeft, MdCheck } from 'react-icons/md';
+import React, { useState } from "react";
+import { MdKeyboardArrowLeft, MdCheck } from "react-icons/md";
 
-import SideMenu from '~/components/SideMenu';
+import SideMenu from "~/components/SideMenu";
 
-import { toast } from 'react-toastify';
-import { Form, Input } from '@rocketseat/unform';
-import PhoneInput from '~/components/PhoneInput';
-import InputMask from 'react-input-mask';
-import history from '~services/history';
+import { toast } from "react-toastify";
+import { Form, Input } from "@rocketseat/unform";
+import PhoneInput from "~/components/PhoneInput";
+import InputMask from "react-input-mask";
+import history from "~services/history";
 
-import api from '~/services/api';
+import api from "~/services/api";
 
-import LogoInput from './LogoInput';
+import LogoInput from "./LogoInput";
 
 import {
   Container,
@@ -19,7 +19,7 @@ import {
   Content,
   Header,
   CustomAsyncSelect,
-} from './styles';
+} from "./styles";
 
 function EditCompany({ history: navigation }) {
   const { company } = navigation.location.state;
@@ -48,8 +48,8 @@ function EditCompany({ history: navigation }) {
   async function handleSubmit(data) {
     let errors = 0;
 
-    if (category === null || category === '') {
-      toast.error('A categoria precisa ser selecionada.');
+    if (category === null || category === "") {
+      toast.error("A categoria precisa ser selecionada.");
       errors += 1;
     }
 
@@ -79,7 +79,7 @@ function EditCompany({ history: navigation }) {
       });
 
       setLoading(false);
-      toast.success('A empresa foi editada e ativada com sucesso!');
+      toast.success("A empresa foi editada e ativada com sucesso!");
     } catch (err) {
       setLoading(false);
       toast.error(err.response.data.error);
@@ -95,7 +95,7 @@ function EditCompany({ history: navigation }) {
             <p>Editar Empresa</p>
             <div className="headerButtons">
               <StyledButton
-                onClick={() => history.push('/pending-companies')}
+                onClick={() => history.push("/pending-companies")}
                 type="button"
               >
                 <MdKeyboardArrowLeft size={20} color="#fff" />
@@ -103,7 +103,7 @@ function EditCompany({ history: navigation }) {
               </StyledButton>
               <StyledButton type="submit">
                 <MdCheck size={20} color="#fff" />
-                {loading ? 'SALVANDO...' : 'SALVAR'}
+                {loading ? "SALVANDO..." : "SALVAR"}
               </StyledButton>
             </div>
           </Header>
@@ -116,7 +116,7 @@ function EditCompany({ history: navigation }) {
                 <h3>Dados da Empresa</h3>
                 <div className="data">
                   <span>Nome</span>
-                  <Input name="name" type="text" placeholder="John Doe" />
+                  <Input name="name" type="text" />
                 </div>
 
                 <div>
@@ -126,8 +126,8 @@ function EditCompany({ history: navigation }) {
                     defaultOptions
                     loadOptions={(e) => loadCategories(e)}
                     defaultValue={{
-                      label: company ? company.category : '',
-                      value: company ? company.category : '',
+                      label: company ? company.category : "",
+                      value: company ? company.category : "",
                     }}
                     onChange={(e) => setCategory(e)}
                     placeholder=""
@@ -155,44 +155,32 @@ function EditCompany({ history: navigation }) {
 
                 <div className="data">
                   <span>E-mail</span>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="exemplo@fastfeet.com"
-                  />
+                  <Input name="email" type="email" placeholder="" />
                 </div>
 
                 <div className="data">
                   <span>Site</span>
-                  <Input
-                    name="website"
-                    placeholder="www.clubearamacan.com.br"
-                  />
+                  <Input name="website" placeholder="" />
                 </div>
 
                 <div className="data">
                   <span>Instagram</span>
-                  <Input name="instagram" placeholder="@aramacan" />
+                  <Input name="instagram" placeholder="" />
                 </div>
 
                 <div className="data">
                   <span>Facebook</span>
-                  <Input name="facebook" placeholder="/aramacan" />
+                  <Input name="facebook" placeholder="" />
                 </div>
 
                 <div className="data">
                   <span>Descrição</span>
-                  <Input
-                    multiline
-                    rows={4}
-                    name="description"
-                    placeholder="Descrição da empresa..."
-                  />
+                  <Input multiline rows={4} name="description" placeholder="" />
                 </div>
 
                 <div className="data">
                   <span>Desconto</span>
-                  <Input name="discount" placeholder="Desconto" />
+                  <Input name="discount" placeholder="" />
                 </div>
               </div>
 
@@ -200,38 +188,34 @@ function EditCompany({ history: navigation }) {
                 <h3>Endereço</h3>
                 <div className="data">
                   <span>Rua</span>
-                  <Input
-                    name="street"
-                    type="text"
-                    placeholder="Rua São Pedro"
-                  />
+                  <Input name="street" type="text" placeholder="" />
                 </div>
 
                 <div className="data">
                   <span>Número</span>
-                  <Input name="number" placeholder="160" />
+                  <Input name="number" placeholder="" />
                 </div>
 
                 <div className="data">
                   <span>Bairro</span>
-                  <Input name="district" placeholder="Silveira" />
+                  <Input name="district" placeholder="" />
                 </div>
 
                 <div className="data">
                   <span>Cidade</span>
-                  <Input name="city" placeholder="Santo André" />
+                  <Input name="city" placeholder="" />
                 </div>
 
                 <div className="data">
                   <span>Estado</span>
-                  <Input name="state" placeholder="SP" />
+                  <Input name="state" placeholder="" />
                 </div>
 
                 <div className="data">
                   <span>CEP</span>
                   <InputMask
                     name="cep"
-                    placeholder="09131-390"
+                    placeholder=""
                     mask="99999-999"
                     maskChar=" "
                     alwaysShowMask={false}
