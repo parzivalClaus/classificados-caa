@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import SideMenu from '~/components/SideMenu';
+import SideMenu from "~/components/SideMenu";
 
-import { Container, GridContainer, MainContent } from './styles';
+import { Container, GridContainer, MainContent } from "./styles";
 
-import api from '~/services/api';
+import api from "~/services/api";
 
 export default function Dashboard() {
   const [activeCompanies, setActiveCompanies] = useState();
@@ -13,7 +13,7 @@ export default function Dashboard() {
   const [pendingUsers, setPendingUsers] = useState();
 
   async function updateInfo() {
-    const companies = await api.get('companies');
+    const companies = await api.get("companies");
 
     setActiveCompanies(
       companies.data.rows.filter((company) => company.active).length
@@ -23,7 +23,7 @@ export default function Dashboard() {
       companies.data.rows.filter((company) => !company.active).length
     );
 
-    const users = await api.get('users');
+    const users = await api.get("users");
 
     setActiveUsers(users.data.rows.filter((user) => user.active).length);
 
@@ -57,8 +57,8 @@ export default function Dashboard() {
             <p
               style={
                 pendingCompanies === 0
-                  ? { color: '#71D143' }
-                  : { color: '#d02a2a' }
+                  ? { color: "#71D143" }
+                  : { color: "#d02a2a" }
               }
             >
               {pendingCompanies}
@@ -78,7 +78,7 @@ export default function Dashboard() {
             </strong>
             <p
               style={
-                pendingUsers === 0 ? { color: '#71D143' } : { color: '#d02a2a' }
+                pendingUsers === 0 ? { color: "#71D143" } : { color: "#d02a2a" }
               }
             >
               {pendingUsers}
