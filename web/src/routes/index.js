@@ -11,12 +11,14 @@ import PendingCompanies from "~/pages/PendingCompanies";
 import ActiveUsers from "~/pages/ActiveUsers";
 import PendingUsers from "~/pages/PendingUsers";
 import EditCompany from "~/pages/EditCompany";
+import RecoveryPassword from "~/pages/RecoveryPassword";
 
 export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Login} />
       <Route path="/active-user" exact component={ActivateUser} />
+      <Route path="/recovery-password" exact component={RecoveryPassword} />
 
       <Route path="/dashboard" exact component={Dashboard} isPrivate />
       <Route path="/profile" exact component={Profile} isPrivate />

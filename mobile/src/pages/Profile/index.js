@@ -1,20 +1,20 @@
-import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Formik } from 'formik';
+import { Formik } from "formik";
 
-import * as yup from 'yup';
+import * as yup from "yup";
 
-import { signOut } from '../../store/modules/auth/actions';
-import { updateProfileRequest } from '../../store/modules/user/actions';
+import { signOut } from "../../store/modules/auth/actions";
+import { updateProfileRequest } from "../../store/modules/user/actions";
 
-import logo2 from '../../assets/logo2.png';
-import background from '../../assets/background-gray.png';
+import logo2 from "../../assets/logo2.png";
+import background from "../../assets/background-gray.png";
 
 import {
   BackgroundContainer,
   BackgroundImage,
-} from '../../components/Background';
+} from "../../components/Background";
 
 import {
   TopBar,
@@ -31,7 +31,7 @@ import {
   ChangePasswordText,
   SubmitButton,
   ErrorText,
-} from './styles';
+} from "./styles";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -79,36 +79,36 @@ export default function Profile() {
             validateOnMount
             onSubmit={(values) => Alert.alert(JSON.stringify(values))}
             initialValues={{
-              name: profile ? profile.name : '',
-              email: profile ? profile.email : '',
-              oldPassword: '',
-              password: '',
-              confirmPassword: '',
+              name: profile ? profile.name : "",
+              email: profile ? profile.email : "",
+              oldPassword: "",
+              password: "",
+              confirmPassword: "",
             }}
             validationSchema={yup.object().shape({
-              name: yup.string().required('O nome precisa ser preenchido.'),
+              name: yup.string().required("O nome precisa ser preenchido."),
               email: yup
                 .string()
-                .email('Digite um endereço de e-mail válido.')
-                .required('O e-mail precisa ser preenchido.'),
+                .email("Digite um endereço de e-mail válido.")
+                .required("O e-mail precisa ser preenchido."),
               oldPassword: yup
                 .string()
-                .min(6, 'A senha precisa ter no mínimo 6 digitos.')
-                .when('password', (password, field) =>
+                .min(6, "A senha precisa ter no mínimo 6 digitos.")
+                .when("password", (password, field) =>
                   password
-                    ? field.required('A senha atual precisa ser preenchida')
+                    ? field.required("A senha atual precisa ser preenchida")
                     : field
                 ),
               password: yup
                 .string()
-                .when('confirmPassword', (confirmPassword, field) =>
+                .when("confirmPassword", (confirmPassword, field) =>
                   confirmPassword ? field.required() : field
                 )
-                .min(6, 'A senha precisa ter no mínimo 6 digitos.'),
+                .min(6, "A senha precisa ter no mínimo 6 digitos."),
               confirmPassword: yup
                 .string()
                 .min(6)
-                .oneOf([yup.ref('password')], 'As senhas não conferem.'),
+                .oneOf([yup.ref("password")], "As senhas não conferem."),
             })}
           >
             {({
@@ -127,8 +127,8 @@ export default function Profile() {
                   placeholder={values.name}
                   onSubmitEditing={() => emailRef.current.focus()}
                   value={values.name}
-                  onBlur={() => setFieldTouched('name')}
-                  onChangeText={handleChange('name')}
+                  onBlur={() => setFieldTouched("name")}
+                  onChangeText={handleChange("name")}
                 />
                 {touched.email && errors.email && (
                   <ErrorText>{errors.email}</ErrorText>
@@ -144,8 +144,8 @@ export default function Profile() {
                   returnKeyType="send"
                   onSubmitEditing={() => handleSubmitData(values)}
                   value={values.email}
-                  onBlur={() => setFieldTouched('email')}
-                  onChangeText={handleChange('email')}
+                  onBlur={() => setFieldTouched("email")}
+                  onChangeText={handleChange("email")}
                 />
                 {touched.email && errors.email && (
                   <ErrorText>{errors.email}</ErrorText>
@@ -167,8 +167,8 @@ export default function Profile() {
                     returnKeyType="next"
                     onSubmitEditing={() => passwordRef.current.focus()}
                     value={values.oldPassword}
-                    onBlur={() => setFieldTouched('oldPassword')}
-                    onChangeText={handleChange('oldPassword')}
+                    onBlur={() => setFieldTouched("oldPassword")}
+                    onChangeText={handleChange("oldPassword")}
                   />
                   {touched.oldPassword && errors.oldPassword && (
                     <ErrorText>{errors.oldPassword}</ErrorText>
@@ -177,13 +177,13 @@ export default function Profile() {
                   <FormInput
                     icon="md-lock"
                     placeholder="Nova senha"
-                    disable={values.oldPassword === ''}
+                    disable={values.oldPassword === ""}
                     ref={passwordRef}
                     returnKeyType="next"
-                    onSubmitEditing={() => confirmPassword.current.focus()}
+                    onSubmitEditing={() => confirmPasswordRef.current.focus()}
                     value={values.password}
-                    onBlur={() => setFieldTouched('password')}
-                    onChangeText={handleChange('password')}
+                    onBlur={() => setFieldTouched("password")}
+                    onChangeText={handleChange("password")}
                   />
                   {touched.password && errors.password && (
                     <ErrorText>{errors.password}</ErrorText>
@@ -193,12 +193,12 @@ export default function Profile() {
                     icon="md-lock"
                     placeholder="Confirme a nova senha"
                     ref={confirmPasswordRef}
-                    disable={values.oldPassword === ''}
+                    disable={values.oldPassword === ""}
                     returnKeyType="send"
                     onSubmitEditing={() => handleSubmitData(values)}
                     value={values.confirmPassword}
-                    onBlur={() => setFieldTouched('confirmPassword')}
-                    onChangeText={handleChange('confirmPassword')}
+                    onBlur={() => setFieldTouched("confirmPassword")}
+                    onChangeText={handleChange("confirmPassword")}
                   />
                   {touched.confirmPassword && errors.confirmPassword && (
                     <ErrorText>{errors.confirmPassword}</ErrorText>

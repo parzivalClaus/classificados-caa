@@ -1,14 +1,15 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-import Login from '../pages/Login';
-import Signin from '../pages/Signin';
-import SignInSuccess from '../pages/SignInSuccess';
+import Login from "../pages/Login";
+import Signin from "../pages/Signin";
+import SignInSuccess from "../pages/SignInSuccess";
 
-import Dashboard from './Dashboard';
+import Dashboard from "./Dashboard";
+import LostPassword from "../pages/LostPassword";
 
 const AppStack = createStackNavigator();
 
@@ -22,6 +23,7 @@ export default function Routes() {
           <AppStack.Screen name="Login" component={Login} />
           <AppStack.Screen name="Signin" component={Signin} />
           <AppStack.Screen name="SignInSuccess" component={SignInSuccess} />
+          <AppStack.Screen name="LostPassword" component={LostPassword} />
         </AppStack.Navigator>
       ) : (
         <AppStack.Navigator screenOptions={{ headerShown: false }}>

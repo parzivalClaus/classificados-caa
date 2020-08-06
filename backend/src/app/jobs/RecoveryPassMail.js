@@ -14,6 +14,7 @@ class RecoveryPassMail {
       template: 'recoveryPass',
       context: {
         name,
+        email,
         recoveryCode,
       },
     });

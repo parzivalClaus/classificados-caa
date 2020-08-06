@@ -1,16 +1,11 @@
-import React, { useRef } from "react";
-
+import React, { useState } from "react";
 import { Alert } from "react-native";
-
-import { useDispatch, useSelector } from "react-redux";
-
-import PropTypes from "prop-types";
 
 import { Formik } from "formik";
 
 import * as yup from "yup";
 
-import { signInRequest } from "../../store/modules/auth/actions";
+import api from "../../services/api";
 
 import logo from "../../assets/logo.png";
 
@@ -32,17 +27,21 @@ import {
   SignLinkText,
 } from "./styles";
 
-export default function Login({ navigation }) {
-  const dispatch = useDispatch();
-
-  const passwordRef = useRef();
-
-  const loading = useSelector((state) => state.auth.loading);
+export default function LostPassword({ navigation }) {
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(values) {
-    const { email, password } = values;
+    const { email } = values;
 
-    dispatch(signInRequest(email, password));
+    try {
+      const result = await api.post("/recovery-password", { email });
+      Alert.alert(
+        "Chave enviada com sucesso!",
+        "Confira seu e-mail e siga as instruções para recuperar sua senha."
+      );
+    } catch (err) {
+      Alert.alert(err.response.data.error);
+    }
   }
 
   return (
@@ -50,23 +49,17 @@ export default function Login({ navigation }) {
       <BackgroundImage source={background} />
       <Container>
         <Logo source={logo} />
-
         <Formik
           validateOnMount
           onSubmit={(values) => Alert.alert(JSON.stringify(values))}
           initialValues={{
             email: "",
-            password: "",
           }}
           validationSchema={yup.object().shape({
             email: yup
               .string()
               .email("Digite um endereço de e-mail válido.")
               .required("O e-mail precisa ser preenchido."),
-            password: yup
-              .string()
-              .required("A senha precisa ser preenchida.")
-              .min(6, "A senha precisa ter no mínimo 6 digitos."),
           })}
         >
           {({
@@ -76,6 +69,7 @@ export default function Login({ navigation }) {
             errors,
             setFieldTouched,
             touched,
+            resetForm,
           }) => (
             <FormView>
               <FormInput
@@ -84,8 +78,8 @@ export default function Login({ navigation }) {
                 autoCorrect={false}
                 autoCapitalize="none"
                 placeholder="Digite seu e-mail"
-                returnKeyType="next"
-                onSubmitEditing={() => passwordRef.current.focus()}
+                returnKeyType="send"
+                onSubmitEditing={() => [handleSubmit(values), resetForm()]}
                 value={values.email}
                 onBlur={() => setFieldTouched("email")}
                 onChangeText={handleChange("email")}
@@ -93,47 +87,22 @@ export default function Login({ navigation }) {
               {touched.email && errors.email && (
                 <ErrorText>{errors.email}</ErrorText>
               )}
-              <FormInput
-                icon="md-lock"
-                secureTextEntry
-                placeholder="Sua senha secreta"
-                ref={passwordRef}
-                returnKeyType="send"
-                onSubmitEditing={() => handleSubmit(values)}
-                value={values.password}
-                onBlur={() => setFieldTouched("password")}
-                onChangeText={handleChange("password")}
-              />
-              {touched.password && errors.password && (
-                <ErrorText>{errors.password}</ErrorText>
-              )}
 
               <SubmitButton
                 disabled={!isValid}
                 loading={loading}
-                onPress={() => handleSubmit(values)}
+                onPress={() => [handleSubmit(values), resetForm()]}
               >
-                Acessar
+                Enviar
               </SubmitButton>
             </FormView>
           )}
         </Formik>
 
-        <SignLink onPress={() => navigation.navigate("Signin")}>
-          <SignLinkText>Não tenho cadastro</SignLinkText>
-        </SignLink>
-        <SignLink onPress={() => navigation.navigate("LostPassword")}>
-          <SignLinkText>Esqueci a senha</SignLinkText>
+        <SignLink onPress={() => navigation.navigate("Login")}>
+          <SignLinkText>Voltar pro login</SignLinkText>
         </SignLink>
       </Container>
     </BackgroundContainer>
   );
 }
-
-Login.propTypes = {
-  navigation: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-};
-
-Login.defaultProps = {
-  navigation: null,
-};
