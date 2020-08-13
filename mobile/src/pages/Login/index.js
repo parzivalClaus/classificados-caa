@@ -41,7 +41,6 @@ export default function Login({ navigation }) {
 
   async function handleSubmit(values) {
     const { email, password } = values;
-
     dispatch(signInRequest(email, password));
   }
 

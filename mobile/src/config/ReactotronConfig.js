@@ -1,13 +1,13 @@
-import Reactotron from 'reactotron-react-native';
-import { reactotronRedux } from 'reactotron-redux';
-import reactotronSaga from 'reactotron-redux-saga';
-import AsyncStorage from '@react-native-community/async-storage';
+import Reactotron from "reactotron-react-native";
+import { reactotronRedux } from "reactotron-redux";
+import reactotronSaga from "reactotron-redux-saga";
+import AsyncStorage from "@react-native-community/async-storage";
 
-import { API_IP } from '@env';
+import { API_IP } from "@env";
 
 if (__DEV__) {
   const tron = Reactotron.setAsyncStorageHandler(AsyncStorage)
-    .configure({ host: API_IP })
+    .configure({ host: "127.0.0.1" })
     .useReactNative()
     .use(reactotronRedux())
     .use(reactotronSaga())
