@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="350" height="auto" src="https://raw.githubusercontent.com/parzivalClaus/classificados-caa/master/web/src/assets/logo.png">
+  <img width="150" height="auto" src="https://raw.githubusercontent.com/parzivalClaus/classificados-caa/master/web/src/assets/logo.png">
 </p>
 
 # Classificados C.A.A.
